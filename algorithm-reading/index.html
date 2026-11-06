@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>알고리즘이 당신에게 이것을 추천합니다 · 주제 탐구 독서 (교과서 92~99쪽)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1C1C1C;--beige:#C9B18B;--beige-l:#F1EADD;--brown:#6B5535;--mid:#A8875A;--bg:#F4F4F2;--gray:#EEEDE9;--text:#1A1A1A;--sub:#6B6B68;--line:#DCDCD8;--dk:#4D4D4D}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:#0f0f0f;font-family:'Noto Sans KR','Noto Sans CJK KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;color:var(--text);-webkit-text-size-adjust:100%;user-select:none;-webkit-user-select:none}
+button{font-family:inherit}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;background:var(--bg);overflow:hidden;word-break:keep-all;overflow-wrap:break-word}
+.slide{position:absolute;inset:0;display:none;background:var(--bg)}
+.slide.active{display:block;animation:sIn .4s ease both}
+@keyframes sIn{from{opacity:0}to{opacity:1}}
+
+/* ---------- 헤더 / 본문 영역 ---------- */
+.hdr{position:absolute;left:0;top:0;width:1920px;height:88px;background:var(--ink);color:#fff;display:flex;align-items:center;gap:24px;padding:0 96px}
+.hdr h1{font-size:42px;font-weight:700;letter-spacing:-.5px;white-space:nowrap}
+.hdr .sub{color:var(--beige);font-size:28px;font-weight:500;white-space:nowrap}
+.hdr .pill{margin-left:auto;background:rgba(255,255,255,.14);border-radius:999px;padding:8px 26px;font-size:26px;font-weight:500;white-space:nowrap}
+.body{position:absolute;left:96px;top:112px;width:1728px;height:872px;display:flex;flex-direction:column;gap:24px}
+.row{display:flex;gap:28px;min-height:0}
+.col{display:flex;flex-direction:column;gap:24px;min-height:0}
+.grow{flex:1;min-width:0;min-height:0}
+
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.05);padding:28px 38px;position:relative}
+.card.dark{background:var(--ink);color:#fff}
+.ct{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.ct h2{font-size:44px;font-weight:700;letter-spacing:-.5px}
+.ct small{font-size:26px;color:var(--sub)}
+.tag{display:inline-block;background:var(--beige-l);color:var(--brown);border-radius:999px;padding:4px 20px;font-size:26px;font-weight:700}
+.tag.k{background:var(--ink);color:#fff}
+.callout{background:var(--beige-l);border-left:5px solid var(--beige);border-radius:8px;padding:16px 26px;font-size:30px;font-weight:600;line-height:1.55}
+.t{font-size:30px;line-height:1.8}
+.t strong,.bl strong{color:var(--brown);font-weight:700}
+.bl{list-style:none}
+.bl li{position:relative;padding-left:34px;font-size:30px;line-height:1.8;margin-bottom:20px}
+.bl li:last-child{margin-bottom:0}
+.bl li::before{content:'';position:absolute;left:4px;top:.82em;width:13px;height:13px;border-radius:50%;background:var(--beige)}
+.bl.s li{font-size:28px}
+.bl.big li{font-size:38px;line-height:1.75;margin-bottom:26px;padding-left:38px}
+.bl.big li::before{width:15px;height:15px;top:.78em}
+.bl.m li{font-size:34px;line-height:1.75;margin-bottom:24px;padding-left:36px}
+.bl.m li::before{top:.8em}
+.num{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:var(--ink);color:#fff;font-weight:700;font-size:28px;flex:none}
+.num.b{background:var(--beige);color:var(--ink)}
+.ic{fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- 빈칸 ---------- */
+.blank{position:relative;display:inline-block;max-width:100%;min-width:3.4em;padding:0 .4em;margin:0 .08em;text-align:center;cursor:pointer;background:var(--beige-l);border-bottom:3px solid var(--brown);border-radius:7px 7px 0 0;line-height:1.35;vertical-align:baseline;transition:background .25s;-webkit-tap-highlight-color:transparent}
+.blank b{font-weight:700;visibility:hidden;color:var(--ink)}
+.blank i{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-style:normal;font-weight:700;font-size:max(.6em,20px);line-height:1;color:var(--brown);background:#fff;border:2px solid var(--brown);border-radius:50%;min-width:1.55em;height:1.55em;display:flex;align-items:center;justify-content:center;padding:0 .2em;transition:opacity .2s}
+.blank:hover{background:#E6D8BC}
+.blank:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.blank.on{background:#EADBBE;border-bottom-color:var(--mid)}
+.blank.on b{visibility:visible;animation:pop .5s cubic-bezier(.2,1.6,.4,1) both}
+.blank.on i{opacity:0}
+.blank.cur{box-shadow:0 0 0 4px rgba(201,177,139,.55)}
+.dark .blank,.blank.dk{background:rgba(201,177,139,.28);border-bottom-color:var(--beige)}
+.dark .blank b,.blank.dk b{color:#fff}
+.dark .blank.on,.blank.dk.on{background:var(--beige)}
+.dark .blank.on b,.blank.dk.on b{color:var(--ink)}
+.dark .blank i,.blank.dk i{background:var(--ink);color:var(--beige);border-color:var(--beige)}
+@keyframes pop{0%{transform:scale(.3);opacity:0}100%{transform:scale(1);opacity:1}}
+
+/* 〈보기〉 칩 */
+.chips{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.chip{border:2px solid var(--line);background:#fff;border-radius:999px;padding:6px 26px;font-size:30px;font-weight:700;position:relative;transition:all .3s}
+.chip.used{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip.used::after{content:' ✓';color:var(--beige)}
+
+/* 표 */
+.tbl{display:grid;border:2px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.tbl>div{padding:18px 26px;border-bottom:1px solid var(--line);border-right:1px solid var(--line);font-size:29px;line-height:1.72;display:flex;align-items:center}
+.tbl.c2,.tbl.c3{flex:1;grid-template-rows:auto repeat(3,1fr)}
+.tbl.big>div{font-size:34px}
+.bl.xl li{font-size:42px;line-height:1.75;margin-bottom:28px;padding-left:40px}
+.bl.xl li::before{width:16px;height:16px;top:.78em}
+.tbl.c3>div:nth-child(3n){border-right:0}
+.tbl.c2>div:nth-child(2n){border-right:0}
+.tbl>div>.cell{display:block;width:100%}
+.tbl>.h{background:var(--gray);font-weight:700;font-size:28px;justify-content:center;padding:12px}
+.tbl>.k{font-weight:700;background:#FAF9F6;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px}
+.tbl>.k small{font-weight:500;color:var(--sub);font-size:26px}
+.tbl.c3>div:nth-last-child(-n+3){border-bottom:0}
+.tbl.c2>div:nth-last-child(-n+2){border-bottom:0}
+
+/* ---------- 컨트롤 바 ---------- */
+#bar{position:absolute;right:40px;bottom:16px;height:64px;display:flex;align-items:center;gap:10px;padding:0 14px;background:rgba(28,28,28,.92);border-radius:14px;color:#fff;z-index:50;transition:opacity .35s,transform .35s;box-shadow:0 4px 18px rgba(0,0,0,.25)}
+#bar.hide{opacity:0;transform:translateY(24px);pointer-events:none}
+#bar button{height:46px;min-width:46px;padding:0 16px;border:0;border-radius:9px;background:rgba(255,255,255,.14);color:#fff;font-size:24px;font-weight:500;cursor:pointer;white-space:nowrap}
+#bar button:hover{background:rgba(255,255,255,.26)}
+#bar button.pri{background:var(--beige);color:var(--ink);font-weight:700}
+#bar .grp{display:flex;align-items:center;gap:10px}
+#bar .grp.r{flex:none;margin-left:6px;padding-left:14px;border-left:2px solid rgba(255,255,255,.18)}
+#bar .nav{width:128px;padding:0;text-align:center}
+#bar button:disabled{opacity:.3;cursor:default;pointer-events:none}
+#bar #nb{width:310px;padding:0}
+#bar #ab{width:150px;padding:0}
+#bar .cnt{font-size:24px;width:96px;text-align:center;font-weight:500;font-variant-numeric:tabular-nums}
+#bar .ver{font-size:20px;color:#9a9a96;margin:0 4px;min-width:42px;text-align:center}
+#prog{position:absolute;left:0;bottom:0;height:6px;background:var(--beige);transition:width .35s;z-index:40}
+#toc{position:absolute;inset:0;background:#141414;z-index:60;display:none;padding:50px 90px}
+#toc.open{display:block}
+#toc h3{color:#fff;font-size:40px;margin-bottom:20px}
+#toc .g{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+#toc button{height:122px;text-align:left;padding:10px 20px;border:2px solid #444;border-radius:12px;background:#2a2a2a;color:#fff;font-size:25px;line-height:1.3;cursor:pointer;overflow:hidden}
+#toc button em{display:block;font-style:normal;color:var(--beige);font-size:22px;margin-bottom:2px}
+#toc button.now{border-color:var(--beige);background:#3a342a}
+
+/* ---------- 1. 표지 ---------- */
+.cover{background:var(--ink)}
+.cover .band{position:absolute;right:0;top:0;width:64px;height:100%;background:var(--beige)}
+.cover .blk{position:absolute;left:0;bottom:0;width:1380px;height:34px;background:var(--brown)}
+.cover .eye{position:absolute;left:120px;top:190px;color:var(--beige);font-size:32px;font-weight:500;line-height:1.6}
+.cover h1{position:absolute;left:116px;top:300px;color:#fff;font-size:108px;line-height:1.28;font-weight:700;letter-spacing:-2px;white-space:nowrap}
+.cover .au{position:absolute;left:124px;top:640px;font-family:'Noto Serif KR','Noto Serif CJK KR',serif;font-size:46px;font-weight:700;color:var(--beige)}
+.cover .au small{display:block;font-family:inherit;font-size:30px;color:#cfc9bd;font-weight:500;margin-top:14px}
+.cover svg.art{position:absolute;left:1090px;top:150px;width:700px;height:760px}
+.cover .bub{opacity:0;transform-box:fill-box;transform-origin:center}
+.cover.active .bub{animation:bubIn .7s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes bubIn{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+.cover .dl{fill:none;stroke:var(--beige);stroke-width:5;stroke-linecap:round;stroke-dasharray:1 17;opacity:0}
+.cover.active .dl{animation:dlIn .6s ease both,flow 1.6s linear infinite}
+@keyframes dlIn{to{opacity:.95}}
+@keyframes flow{to{stroke-dashoffset:-36}}
+.cover .scr{animation:glow 2.4s ease-in-out infinite}
+@keyframes glow{0%,100%{opacity:.5}50%{opacity:1}}
+
+/* ---------- 2. 훅 ---------- */
+.sc{width:549px;height:430px;display:flex;flex-direction:column;gap:20px}
+.sc .tp{display:flex;align-items:center;gap:16px}
+.sc .tp svg{width:64px;height:64px;color:var(--brown)}
+.sc .tp b{font-size:42px}
+.say{position:relative;background:var(--beige-l);border-radius:16px;padding:24px 28px;font-size:36px;font-weight:600;line-height:1.55;margin-top:6px}
+.say::before{content:'';position:absolute;left:44px;top:-14px;border:14px solid transparent;border-top:0;border-bottom-color:var(--beige-l)}
+.slide.active .sc{animation:slideUp .6s cubic-bezier(.2,.9,.3,1) both}
+.slide.active .sc:nth-child(2){animation-delay:.15s}
+.slide.active .sc:nth-child(3){animation-delay:.3s}
+@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+.slide.active .say{animation:nudge 3.6s ease-in-out 1s infinite}
+@keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
+.tags span{background:var(--gray);border-radius:8px;padding:4px 16px;font-size:26px;font-weight:500}
+
+/* ---------- 3. 깔때기 ---------- */
+#fnl{display:block;width:1728px;height:690px}
+.lb{position:absolute;color:#fff;font-size:30px;font-weight:700}
+.lb.p{background:var(--beige);color:var(--ink);padding:8px 28px;border-radius:999px;font-size:34px}
+.lb.s{color:var(--beige);font-weight:500;font-size:28px}
+
+/* ---------- 4. 두 방법 ---------- */
+.mth{width:850px;display:flex;flex-direction:column;gap:12px;padding:22px 26px}
+.mth .stage{position:relative;height:346px;width:100%;background:#FAF9F6;border-radius:12px;overflow:hidden}
+.mth .cap{font-size:29px;line-height:1.6;min-height:94px}
+.mth .nm{font-size:34px;font-weight:700;display:flex;align-items:center;gap:14px}
+.pc{position:absolute;width:150px;height:60px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;opacity:0}
+.pc.a{left:70px;background:#1C1C1C;color:#fff}.pc.b{left:324px;background:var(--beige);color:var(--ink)}.pc.c{left:578px;background:var(--mid);color:#fff}
+.slide.active .pc{animation:pDrop 8s ease-in-out infinite}
+.slide.active .pc.b{animation-delay:.25s}.slide.active .pc.c{animation-delay:.5s}
+@keyframes pDrop{0%{opacity:0;transform:translate(var(--dx),-70px) scale(.3)}10%{opacity:1;transform:translate(0,0) scale(1)}42%{transform:translate(0,0)}58%{transform:translate(0,142px)}88%{opacity:1;transform:translate(0,142px)}100%{opacity:0;transform:translate(0,142px)}}
+.pc{top:104px}.pc.a{--dx:254px}.pc.b{--dx:0}.pc.c{--dx:-254px}
+.slot{position:absolute;top:246px;width:150px;height:60px;border:3px dashed var(--beige);border-radius:12px}
+.film{position:absolute;left:359px;top:8px;width:80px;height:80px;color:var(--ink)}
+.ok{position:absolute;left:0;right:0;top:308px;text-align:center;font-size:26px;font-weight:700;color:var(--brown);opacity:0}
+.slide.active .ok{animation:okIn 8s infinite}
+@keyframes okIn{0%,60%{opacity:0}66%,88%{opacity:1}100%{opacity:0}}
+.me{position:absolute;width:90px;height:90px;color:var(--ink)}
+.stars{position:absolute;font-size:34px;letter-spacing:2px;color:var(--mid);opacity:0}
+.slide.active .stars{animation:starsIn 8s infinite}
+@keyframes starsIn{0%,4%{opacity:0;transform:scale(.4)}12%,86%{opacity:1;transform:scale(1)}100%{opacity:0}}
+.lnk{position:absolute;left:150px;top:236px;width:500px;border-top:5px dashed var(--beige);transform-origin:left;transform:scaleX(0)}
+.slide.active .lnk{animation:lnkIn 8s infinite}
+@keyframes lnkIn{0%,14%{transform:scaleX(0)}28%,88%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+.lbl{position:absolute;font-size:26px;font-weight:700}
+.env{position:absolute;left:672px;top:30px;width:84px;height:84px;color:var(--brown);opacity:0}
+.slide.active .env{animation:envFly 8s infinite}
+@keyframes envFly{0%,30%{opacity:0;transform:translate(0,0)}38%{opacity:1;transform:translate(0,0)}68%{opacity:1;transform:translate(-629px,0)}86%{opacity:1;transform:translate(-629px,0)}100%{opacity:0;transform:translate(-629px,0)}}
+.arr{position:absolute;left:130px;top:44px;font-size:28px;font-weight:700;color:var(--brown);opacity:0}
+.slide.active .arr{animation:okIn 8s infinite}
+
+/* ---------- 학습목표 ---------- */
+.goal{display:flex;align-items:center;gap:28px;font-size:42px;line-height:1.5;font-weight:500}
+.goal .num{width:76px;height:76px;font-size:40px}
+.slide.active .goal{animation:slideUp .6s ease both}
+.slide.active .goal:nth-child(2){animation-delay:.15s}.slide.active .goal:nth-child(3){animation-delay:.3s}
+.flow{display:flex;align-items:stretch;gap:0}
+.flow .st{flex:1;background:#fff;border:2px solid var(--line);padding:26px 18px;text-align:center;font-size:36px;font-weight:700;line-height:1.35;position:relative}
+.flow .st small{display:block;font-size:27px;color:var(--sub);font-weight:500;margin-top:4px}
+.flow .st:first-child{border-radius:12px 0 0 12px}.flow .st:last-child{border-radius:0 12px 12px 0}
+.flow .st+.st{border-left:0}
+.flow .st.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.flow .st.on small{color:var(--beige)}
+
+/* ---------- 문단 슬라이드 공통 ---------- */
+.vis{position:relative;overflow:hidden}
+.mini{background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.05);padding:22px 26px;display:flex;align-items:center;gap:20px;font-size:34px;font-weight:700}
+.mini svg{width:96px;height:96px;flex:none;color:var(--ink)}
+.slot2{flex:1;border:3px dashed var(--beige);border-radius:12px;min-height:116px;display:flex;align-items:center;justify-content:center;gap:12px;font-size:30px;color:var(--sub);position:relative}
+.slot2 .fill{display:flex;align-items:center;gap:12px;opacity:0;transform:scale(.6);transition:all .5s cubic-bezier(.2,1.5,.4,1);color:var(--ink);font-weight:700}
+.slot2 .fill svg{width:72px;height:72px}
+.slot2.shown .fill{opacity:1;transform:scale(1)}
+.slot2.shown .q{display:none}
+.q{font-size:40px;font-weight:700;color:var(--beige)}
+.fx{opacity:0;transition:opacity .5s}
+.fx.shown{opacity:1}
+.lk{position:relative;height:100%;display:flex;align-items:center;gap:10px}
+.lk .ln{flex:1;border-top:5px dashed var(--beige);position:relative;height:0;transform:scaleX(0);transform-origin:left;transition:transform .8s}
+.lk .ln.shown{transform:scaleX(1)}
+.lk .lt{position:absolute;left:0;right:0;top:-52px;text-align:center;font-size:34px;font-weight:700;color:var(--brown);opacity:0;transition:opacity .6s .5s}
+.lk .ln.shown .lt{opacity:1}
+.eng{width:848px;display:flex;flex-direction:column;gap:12px}
+.eng .hd{display:flex;align-items:center;gap:20px}
+.eng .hd svg{width:84px;height:84px;color:var(--ink)}
+.slide.active .eng .hd svg{animation:wig 3.2s ease-in-out infinite}
+@keyframes wig{0%,100%{transform:rotate(0)}15%{transform:rotate(-8deg)}30%{transform:rotate(7deg)}45%{transform:rotate(0)}}
+
+/* 별점 */
+.rt{display:grid;grid-template-columns:140px 1fr 1fr;gap:16px 8px;align-items:center;font-size:30px}
+.rt .h{font-weight:700;text-align:center;background:var(--gray);border-radius:8px;padding:6px 0}
+.rt .mv{font-weight:700}
+.rt .s{letter-spacing:0;font-size:36px;text-align:center;color:var(--mid)}
+.rt .s u{text-decoration:none;color:#D5D0C6}
+.slide.active .rt>*{animation:slideUp .5s ease both}
+.slide.active .rt>*:nth-child(n+4){animation-delay:.3s}.slide.active .rt>*:nth-child(n+7){animation-delay:.6s}.slide.active .rt>*:nth-child(n+10){animation-delay:.9s}.slide.active .rt>*:nth-child(n+13){animation-delay:1.3s}
+.rt .new{background:var(--beige-l);border-radius:8px}
+.qm{display:inline-block;font-weight:900;color:var(--brown)}
+.slide.active .qm{animation:beat 1.2s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.35)}}
+
+/* 평면 */
+svg.plane{display:block;width:100%;height:100%}
+.plane .gl{stroke:#E4E1D8;stroke-width:2}
+.plane .ax{stroke:#1C1C1C;stroke-width:4}
+.plane .tk{font-size:28px;fill:#6B6B68;font-weight:500}
+.plane .an{font-size:30px;fill:#1C1C1C;font-weight:700}
+.plane .pt{font-size:32px;font-weight:700;fill:#1C1C1C;paint-order:stroke;stroke:#fff;stroke-width:7px;stroke-linejoin:round}
+.plane .lab{font-size:30px;font-weight:700;fill:#6B5535;paint-order:stroke;stroke:#fff;stroke-width:7px}
+.plane .dot{fill:#1C1C1C}
+.plane .draw{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.plane .pop{opacity:0}
+.slide.active .plane .loopD{stroke-dasharray:1;stroke-dashoffset:1;animation:drw 7s ease-in-out infinite}
+.slide.active .plane .loopD.d2{animation-delay:1.2s}
+.slide.active .plane .loopL{opacity:0;animation:lblIn 7s ease-in-out infinite}
+.slide.active .plane .loopL.d2{animation-delay:1.2s}.slide.active .plane .loopL.d3{animation-delay:2.4s}
+@keyframes drw{0%{stroke-dashoffset:1}28%{stroke-dashoffset:0}88%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}
+@keyframes lblIn{0%,24%{opacity:0}34%,88%{opacity:1}100%{opacity:0}}
+.plane .fxd{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1s ease}
+.plane .fxd.shown{stroke-dashoffset:0}
+.plane .ring{fill:none;stroke:#6B5535;stroke-width:6;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.4);transition:all .6s cubic-bezier(.2,1.5,.4,1)}
+.plane .ring.shown{opacity:1;transform:scale(1)}
+.legend{display:flex;gap:26px;font-size:26px;font-weight:600;align-items:center}
+.legend i{display:inline-block;width:46px;height:0;border-top:6px solid;margin-right:10px;vertical-align:middle}
+
+/* 표 격자 애니메이션 */
+.grid1{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;padding:10px;background:#fff;border:2px solid var(--line);border-radius:10px}
+.grid1 span{height:34px;background:#F3F1EC;border-radius:4px}
+.grid1 span.f{background:var(--mid)}
+.grid2{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:10px;background:#fff;border:2px solid var(--line);border-radius:10px}
+.grid2 span{height:34px;background:var(--beige);border-radius:4px}
+.slide.active .grid2 span{animation:cellIn 6s ease-in-out infinite;animation-delay:calc(var(--i)*.06s)}
+@keyframes cellIn{0%,20%{opacity:0;transform:scale(.3)}32%,90%{opacity:1;transform:scale(1)}100%{opacity:0}}
+.slide.active .grid1 span.f{animation:fpulse 3s ease-in-out infinite}
+@keyframes fpulse{0%,100%{opacity:1}50%{opacity:.55}}
+.bigarr{font-size:64px;font-weight:900;color:var(--beige);text-align:center;line-height:1}
+.slide.active .bigarr{animation:nudgeX 1.6s ease-in-out infinite}
+@keyframes nudgeX{0%,100%{transform:translateX(0)}50%{transform:translateX(12px)}}
+
+/* 울타리 */
+#fence{width:100%;height:100%}
+.slide.active .orb{animation:orb 9s linear infinite;transform-origin:300px 330px}
+.slide.active .orb.r2{animation-duration:14s;animation-direction:reverse}
+@keyframes orb{to{transform:rotate(360deg)}}
+.fenc{fill:none;stroke:#C9B18B;stroke-width:6;stroke-dasharray:18 14;transition:stroke .5s,stroke-width .5s}
+.fenc.shown{stroke:#1C1C1C;stroke-dasharray:none;stroke-width:10}
+.glowb{opacity:.35;transition:opacity .5s;transform-box:fill-box;transform-origin:center}
+.glowb.shown{opacity:1;animation:bookGlow 1.6s ease-in-out infinite}
+@keyframes bookGlow{0%,100%{transform:scale(1);filter:drop-shadow(0 0 0 #C9B18B)}50%{transform:scale(1.18);filter:drop-shadow(0 0 16px #C9B18B)}}
+
+/* 순환 */
+.cyc{display:flex;align-items:center;gap:0;justify-content:center}
+.cyc .nd{width:340px;height:176px;background:#fff;border:3px solid var(--ink);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:30px;font-weight:700;text-align:center;line-height:1.3;gap:4px}
+.cyc .nd small{font-size:28px;color:var(--sub);font-weight:500}
+.cyc .ar{width:100px;text-align:center;font-size:56px;font-weight:900;color:var(--beige)}
+.slide.active .cyc .nd{animation:ndPulse 8s ease-in-out infinite;animation-delay:calc(var(--i)*2s)}
+.slide.active .cyc .ar{animation:nudgeX 1.6s ease-in-out infinite}
+@keyframes ndPulse{0%,25%,100%{background:#fff;color:var(--text)}6%,19%{background:var(--ink);color:#fff}}
+.back{height:56px;margin:12px 0 0;border:4px dashed var(--beige);border-top:0;border-radius:0 0 40px 40px;position:relative}
+.back span{position:absolute;left:50%;top:50%;transform:translate(-50%,-30%);background:var(--bg);padding:0 22px;font-size:28px;font-weight:700;color:var(--brown);white-space:nowrap}
+
+/* 아이콘 + 표 */
+.ico{width:104px;height:104px;color:var(--ink);flex:none}
+.pulseD{animation:pulseD 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pulseD{0%,100%{opacity:.35;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+.bubw{animation:bubW 3.6s ease-in-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes bubW{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.hit{animation:hit 3s ease-out infinite}
+@keyframes hit{0%,60%{opacity:0;transform:translate(0,0)}70%{opacity:1}100%{opacity:0;transform:translate(-36px,0)}}
+
+/* 자료 카드 */
+.bk{background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.05);padding:26px 32px 26px 62px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:12px}
+.bk::before{content:'';position:absolute;left:0;top:0;bottom:0;width:26px;background:var(--ink)}
+.bk::after{content:'';position:absolute;left:26px;top:0;bottom:0;width:8px;background:var(--beige)}
+.bk h3{font-size:40px;line-height:1.3;font-weight:700}
+.bk .au{font-size:30px;color:var(--brown);font-weight:700}
+.bk p{font-size:33px;line-height:1.7}
+.slide.active .bk{animation:slideUp .6s cubic-bezier(.2,.9,.3,1) both}
+.slide.active .bk:nth-child(2){animation-delay:.12s}.slide.active .bk:nth-child(3){animation-delay:.24s}.slide.active .bk:nth-child(4){animation-delay:.36s}
+
+/* 자기 점검 */
+.chk{display:grid;grid-template-columns:330px 1fr 330px;gap:0;align-items:center;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.05);overflow:hidden}
+.chk .a{background:var(--ink);color:#fff;font-size:38px;font-weight:700;padding:0 24px;height:100%;display:flex;align-items:center}
+.chk .q{font-size:36px;line-height:1.6;padding:26px 34px;color:var(--text);font-weight:500}
+.chk .o{display:flex;gap:12px;padding-right:30px}
+.sel{flex:1;height:104px;border:3px solid var(--line);border-radius:12px;background:#fff;font-size:34px;font-weight:700;cursor:pointer;color:var(--sub)}
+.sel.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* 정리 */
+.sm{flex:1;min-height:430px;justify-content:center;border-radius:16px;border:4px solid var(--ink);background:#fff;position:relative;padding:62px 24px 26px;text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center}
+.sm .tt{position:absolute;left:50%;top:-34px;transform:translateX(-50%);background:var(--ink);color:#fff;font-size:40px;font-weight:700;padding:6px 36px;border-radius:10px;white-space:nowrap}
+.sm .blank{font-size:36px;line-height:1.5;display:block;width:100%}
+.sm svg{width:112px;height:112px;color:var(--brown)}
+.sm.k4{border-color:var(--mid);background:var(--ink);color:#fff}
+.sm.k4 .tt{background:var(--beige);color:var(--ink)}
+.sm.k4 svg{color:var(--beige)}
+.sar{width:64px;display:flex;align-items:center;justify-content:center;font-size:56px;font-weight:900;color:var(--beige)}
+.slide.active .sm{animation:slideUp .6s ease both;animation-delay:calc(var(--i)*.22s)}
+.slide.active .sar{animation:nudgeX 1.6s ease-in-out infinite}
+.serif{font-family:'Noto Serif KR','Noto Serif CJK KR',serif;font-weight:700}
+
+/* 배움일지 */
+.jn{flex:1;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.05);padding:30px 34px;display:flex;flex-direction:column}
+.jn h3{font-size:44px;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:16px}
+.jn .ln{flex:1;background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 77px,var(--line) 77px,var(--line) 79px)}
+
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* 보강 */
+.tile{border:3px solid var(--ink);border-radius:10px;padding:18px 28px;background:#fff;font-size:34px;font-weight:700;white-space:nowrap}
+.hbar{height:92px;border-radius:12px;background:var(--ink);color:#fff;font-size:46px;font-weight:700;display:flex;align-items:center;gap:20px;padding:0 34px}
+.hbar svg{width:56px;height:56px;color:var(--beige)}
+.hbar.gray{background:var(--dk)}
+.eff{flex:1;display:flex;flex-direction:column;gap:18px;justify-content:center;padding:30px 40px}
+.eff p{font-size:40px;line-height:1.75;font-weight:500}
+.eff .tag{align-self:flex-start;font-size:30px}
+.slide.active .eff{animation:slideUp .6s ease both}
+.slide.active .col .eff:nth-child(3){animation-delay:.2s}
+.mth .ct h2{font-size:40px;display:flex;align-items:center;gap:14px}
+.mth .ct h2 .tag{font-size:28px}
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-film" viewBox="0 0 64 64"><rect x="8" y="12" width="48" height="40" rx="5"/><path d="M8 24h48M8 40h48M20 12v40M44 12v40"/></symbol>
+    <symbol id="i-note" viewBox="0 0 64 64"><path d="M26 44V14l26-6v30"/><ellipse cx="20" cy="46" rx="8" ry="6"/><ellipse cx="46" cy="40" rx="8" ry="6"/></symbol>
+    <symbol id="i-cart" viewBox="0 0 64 64"><path d="M5 10h10l7 30h28l6-22H17"/><circle cx="26" cy="50" r="4"/><circle cx="46" cy="50" r="4"/></symbol>
+    <symbol id="i-book" viewBox="0 0 64 64"><path d="M32 14C25 9 15 9 7 11v39c8-2 18-2 25 3 7-5 17-5 25-3V11c-8-2-18-2-25 3zM32 14v39"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 64 64"><rect x="18" y="5" width="28" height="54" rx="6"/><circle cx="32" cy="51" r="2"/></symbol>
+    <symbol id="i-case" viewBox="0 0 64 64"><rect x="14" y="4" width="36" height="56" rx="9"/><rect x="20" y="10" width="14" height="14" rx="4"/></symbol>
+    <symbol id="i-person" viewBox="0 0 64 64"><circle cx="32" cy="22" r="10"/><path d="M12 57c2-14 10-20 20-20s18 6 20 20"/></symbol>
+    <symbol id="i-envelope" viewBox="0 0 64 64"><rect x="6" y="14" width="52" height="36" rx="4"/><path d="M6 18l26 20 26-20"/></symbol>
+    <symbol id="i-star" viewBox="0 0 64 64"><path d="M32 6l7.6 16.4 17.9 2.1-13.3 12.2 3.6 17.7L32 45.2 16.2 54.4l3.6-17.7L6.5 24.5l17.9-2.1z"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 64 64"><circle cx="32" cy="32" r="9"/><circle cx="32" cy="32" r="20"/><path d="M32 6v6M32 52v6M6 32h6M52 32h6M14 14l4 4M46 46l4 4M14 50l4-4M46 18l4-4"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 64 64"><rect x="9" y="26" width="46" height="30" rx="3"/><rect x="5" y="16" width="54" height="10" rx="2"/><path d="M32 16v40M32 16c-5-10-18-8-14 0M32 16c5-10 18-8 14 0"/></symbol>
+    <symbol id="i-bubble" viewBox="0 0 64 64"><circle cx="32" cy="32" r="25"/><circle cx="32" cy="27" r="7"/><path d="M19 47c3-8 8-10 13-10s10 2 13 10"/></symbol>
+  </defs>
+</svg>
+
+<div id="stage">
+<!-- ================= 1. 표지 ================= -->
+<section class="slide cover" data-hook="cover" data-title="알고리즘이 당신에게 이것을 추천합니다" data-pill="표지">
+  <div class="band"></div><div class="blk"></div>
+  <div class="eye">주제 탐구 독서 · 2. 관심 분야를 읽는 힘<br>03. 과학·기술 분야에서 주제 탐구 독서 하기 (교과서 92~99쪽)</div>
+  <h1 id="coverTitle" data-t="알고리즘이 당신에게|이것을 추천합니다">알고리즘이 당신에게<br>이것을 추천합니다</h1>
+  <div class="au">크리스토프 드뢰서<small>내 취향을 읽는 기술, 그리고 필터 버블</small></div>
+  <svg class="art" viewBox="0 0 700 760" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path class="dl" style="animation-delay:.2s,.2s" d="M350 470 C 280 440, 170 420, 90 330"/>
+    <path class="dl" style="animation-delay:.4s,.4s" d="M350 470 C 320 380, 280 260, 230 150"/>
+    <path class="dl" style="animation-delay:.6s,.6s" d="M350 470 C 390 380, 430 260, 470 150"/>
+    <path class="dl" style="animation-delay:.8s,.8s" d="M350 470 C 420 440, 530 420, 610 330"/>
+    <g class="bub" style="animation-delay:.3s"><circle cx="90" cy="330" r="64" fill="#1C1C1C" stroke="#C9B18B" stroke-width="4"/><svg x="50" y="290" width="80" height="80" viewBox="0 0 64 64" class="ic" style="color:#F1EADD"><use href="#i-film"/></svg></g>
+    <g class="bub" style="animation-delay:.5s"><circle cx="230" cy="150" r="64" fill="#1C1C1C" stroke="#C9B18B" stroke-width="4"/><svg x="190" y="110" width="80" height="80" viewBox="0 0 64 64" class="ic" style="color:#F1EADD"><use href="#i-note"/></svg></g>
+    <g class="bub" style="animation-delay:.7s"><circle cx="470" cy="150" r="64" fill="#1C1C1C" stroke="#C9B18B" stroke-width="4"/><svg x="430" y="110" width="80" height="80" viewBox="0 0 64 64" class="ic" style="color:#F1EADD"><use href="#i-cart"/></svg></g>
+    <g class="bub" style="animation-delay:.9s"><circle cx="610" cy="330" r="64" fill="#1C1C1C" stroke="#C9B18B" stroke-width="4"/><svg x="570" y="290" width="80" height="80" viewBox="0 0 64 64" class="ic" style="color:#F1EADD"><use href="#i-book"/></svg></g>
+    <rect x="245" y="470" width="210" height="270" rx="30" fill="#1C1C1C" stroke="#F1EADD" stroke-width="8"/>
+    <rect x="263" y="500" width="174" height="200" rx="12" fill="#C9B18B" class="scr"/>
+    <circle cx="350" cy="722" r="7" fill="#F1EADD"/>
+  </svg>
+</section>
+
+<!-- ================= 2. 훅 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>내 마음을 어떻게 알았지?</h1><span class="sub">시작 자료 ①</span><span class="pill">생각 열기</span></div>
+  <div class="body">
+    <div class="row" style="gap:32px">
+      <div class="card sc"><div class="tp"><svg class="ic" viewBox="0 0 64 64"><use href="#i-cart"/></svg><b>온라인 쇼핑몰</b></div><div class="say">“이 상품을 구매하신 고객들은 다음 상품도 구매하셨습니다.”</div></div>
+      <div class="card sc"><div class="tp"><svg class="ic" viewBox="0 0 64 64"><use href="#i-film"/></svg><b>동영상 플랫폼</b></div><div class="say">“방금 본 영상과 비슷한 영상을 골라 두었어요.”</div></div>
+      <div class="card sc"><div class="tp"><svg class="ic" viewBox="0 0 64 64"><use href="#i-note"/></svg><b>음악 앱</b></div><div class="say">“이 노래를 들은 사람들이 많이 찾는 노래예요.”</div></div>
+    </div>
+    <div class="card" style="flex:1">
+      <div class="ct"><h2 style="font-size:50px">누가 말해 준 적도 없는데, 알고리즘은 어떻게 내 취향을 알았을까?</h2></div>
+      <p class="t" style="font-size:44px;line-height:1.9">알고리즘이 모으는 것은 나의 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>검색</b></span>·<span class="blank" role="button" tabindex="0" aria-pressed="false"><b>시청</b></span>·<span class="blank" role="button" tabindex="0" aria-pressed="false"><b>구매</b></span> 같은 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>행동 기록</b></span>이다. <br><span style="color:var(--sub);font-size:30px">(빈칸을 눌러 확인)</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3. 깔때기 ================= -->
+<section class="slide" data-hook="funnel">
+  <div class="hdr"><h1>데이터의 바다와 나를 잇는 깔때기</h1><span class="sub">시작 자료 ②</span><span class="pill">추천 시스템</span></div>
+  <div class="body">
+    <div class="card dark" style="padding:0;height:690px;overflow:hidden">
+      <canvas id="fnl"></canvas>
+      <div class="lb s" style="left:44px;top:26px">넘쳐나는 정보 (데이터의 바다)</div>
+      <div class="lb p" style="left:548px;top:318px">추천 알고리즘</div>
+      <div class="lb s" style="left:930px;top:206px">고르고 고른 몇 개</div>
+      <div class="lb s" style="left:1530px;top:488px">나</div>
+    </div>
+    <div class="callout">넘쳐나는 정보 속에서 사용자와 상품을 이어 주는 다리, 그것이 ‘추천 시스템’이다.</div>
+  </div>
+</section>
+
+<!-- ================= 4. 두 방법 이름 붙이기 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>추천하는 방법, 두 가지는 어떻게 다를까?</h1><span class="sub">시작 자료 ③</span><span class="pill">이름 붙이기</span></div>
+  <div class="body">
+    <div class="callout">움직이는 그림을 보고 두 방법의 차이를 말해 보자. 그리고 이름을 붙여 보자.</div>
+    <div class="row" style="gap:28px">
+      <div class="card mth">
+        <div class="ct" style="margin:0"><h2><span class="tag k">방법 A</span> 상품을 쪼개 본다</h2></div>
+        <div class="stage">
+          <svg class="ic film" viewBox="0 0 64 64"><use href="#i-film"/></svg>
+          <div class="lbl" style="left:455px;top:30px">영화 한 편</div>
+          <div class="pc a">로맨틱 정도</div><div class="pc b">결말</div><div class="pc c">무대</div>
+          <div class="slot" style="left:70px"></div><div class="slot" style="left:324px"></div><div class="slot" style="left:578px"></div>
+          <div class="ok">✓ 내가 좋아한 요소와 맞아요!</div>
+        </div>
+        <div class="cap">영화를 아주 작은 요소로 쪼개어, 내가 좋아했던 요소와 맞춰 본다.</div>
+        <div class="nm">이 방법의 이름은? <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>내용 기반 필터링</b></span></div>
+      </div>
+      <div class="card mth">
+        <div class="ct" style="margin:0"><h2><span class="tag k">방법 B</span> 사람과 사람을 잇는다</h2></div>
+        <div class="stage">
+          <div class="stars" style="left:6px;top:128px">★★★★★</div><div class="stars" style="left:600px;top:128px">★★★★★</div>
+          <svg class="ic me" style="left:40px;top:190px" viewBox="0 0 64 64"><use href="#i-person"/></svg>
+          <svg class="ic me" style="left:668px;top:190px" viewBox="0 0 64 64"><use href="#i-person"/></svg>
+          <div class="lbl" style="left:22px;top:292px">사용자 A</div><div class="lbl" style="left:650px;top:292px">사용자 B</div>
+          <div class="lnk"></div>
+          <div class="lbl ok" style="left:270px;top:150px;width:260px;text-align:center">같은 영화, 같은 별점!</div>
+          <svg class="ic env" viewBox="0 0 64 64"><use href="#i-envelope"/></svg>
+          <div class="lbl arr" style="left:130px;top:44px;font-size:28px">새 추천 도착!</div>
+        </div>
+        <div class="cap">내용은 몰라도 괜찮다. 나와 별점이 닮은 사람이 좋아한 것을 건네받는다.</div>
+        <div class="nm">이 방법의 이름은? <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>협업 필터링</b></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5. 학습 목표 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>오늘의 학습 목표</h1><span class="sub">시작 자료 ④</span><span class="pill">수업 열기</span></div>
+  <div class="body">
+    <div class="card col" style="gap:34px;padding:44px 52px">
+      <div class="goal"><span class="num">1</span><span>추천 알고리즘의 두 가지 기본 원리를 <strong style="color:var(--brown)">설명</strong>할 수 있다.</span></div>
+      <div class="goal"><span class="num">2</span><span>사용자 사이의 ‘가까움’을 구하는 세 가지 방법을 이해하고 <strong style="color:var(--brown)">직접 계산</strong>해 본다.</span></div>
+      <div class="goal"><span class="num">3</span><span>추천 알고리즘의 효용과 한계(필터 버블)를 <strong style="color:var(--brown)">비판적으로</strong> 이해한다.</span></div>
+    </div>
+    <div class="flow">
+      <div class="st">활동 1<small>문단별 핵심 내용 파악</small></div>
+      <div class="st">활동 2<small>글의 내용 이해하기</small></div>
+      <div class="st">활동 3<small>원리 적용하기</small></div>
+      <div class="st">활동 4<small>비판적으로 이해하기</small></div>
+      <div class="st">활동 5<small>독서 방법 점검</small></div>
+    </div>
+    <div class="card dark" style="padding:36px 48px;display:flex;align-items:center;gap:30px;flex:1">
+      <span class="num b" style="width:64px;height:64px;font-size:38px">?</span>
+      <div style="font-size:40px;line-height:1.6;font-weight:700">읽기 전 질문<br><span class="serif" style="color:var(--beige);font-size:44px">알고리즘이 골라 주는 것만 보면, 내 세계는 넓어질까 좁아질까?</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 6. 처음 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>문단별 핵심 내용 파악하기</h1><span class="sub">교과서 92쪽 1문단</span><span class="pill">활동 1 · 처음</span></div>
+  <div class="body">
+    <div class="row" style="flex:1">
+      <div class="card" style="width:900px">
+        <div class="ct"><h2 style="font-size:50px">처음</h2><small>92쪽 1문단</small></div>
+        <ul class="bl xl">
+          <li><strong>일상 속 단순한 추천 시스템:</strong> 온라인 쇼핑몰에서 “이 상품을 구매하신 고객들은 다음 상품도 구매하셨습니다.”라고 언급되는 상품들은 한눈에 봐도 서로 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="1" data-k="1"><i>1</i><b>관련</b></span>이 있음.</li>
+          <li><strong>구체적 사례:</strong> 소설을 검색하면 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="2" data-k="2"><i>2</i><b>같은 저자</b></span>의 다른 책이 추천되고, 핸드폰을 검색하면 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="3" data-k="3"><i>3</i><b>핸드폰 케이스</b></span>가 추천되는 방식임.</li>
+        </ul>
+      </div>
+      <div class="col grow" style="gap:28px;justify-content:center">
+        <div class="mini"><div class="tile">상품 A</div><div class="lk" style="flex:1"><div class="ln" data-for="1"><span class="lt">관련</span></div></div><div class="tile">상품 B</div></div>
+        <div class="mini"><svg class="ic" viewBox="0 0 64 64"><use href="#i-book"/></svg><span style="white-space:nowrap">‘소설’ 검색</span><span style="font-size:40px;color:var(--beige)">→</span><div class="slot2" data-for="2"><span class="q">?</span><span class="fill"><svg class="ic" viewBox="0 0 64 64"><use href="#i-book"/></svg>같은 저자</span></div></div>
+        <div class="mini"><svg class="ic" viewBox="0 0 64 64"><use href="#i-phone"/></svg><span style="white-space:nowrap">‘핸드폰’ 검색</span><span style="font-size:40px;color:var(--beige)">→</span><div class="slot2" data-for="3"><span class="q">?</span><span class="fill"><svg class="ic" viewBox="0 0 64 64"><use href="#i-case"/></svg>핸드폰 케이스</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 7. 중간 1 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>문단별 핵심 내용 파악하기</h1><span class="sub">교과서 92쪽 2문단</span><span class="pill">활동 1 · 중간 1</span></div>
+  <div class="body">
+    <div class="callout" style="padding:10px 26px;font-size:34px">두 가지 기본 추천 알고리즘의 비교</div>
+    <div class="row" style="gap:32px">
+      <div class="card eng">
+        <div class="hd"><svg class="ic" viewBox="0 0 64 64"><use href="#i-film"/></svg><h2 style="font-size:46px">‘<span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="4" data-k="4"><i>4</i><b>내용 기반 필터링</b></span>’ 알고리즘</h2></div>
+        <p class="t" style="font-size:36px">취급하는 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="5" data-k="5"><i>5</i><b>상품</b></span>에 대해 많은 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="6" data-k="6"><i>6</i><b>지식</b></span>을 보유하고 그것을 새로운 추천의 기반으로 삼음. 가령 영화를 ‘얼마나 로맨틱한가?’, ‘<span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="7" data-k="7"><i>7</i><b>결말</b></span>이 어떠한가?’, ‘<span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="8" data-k="8"><i>8</i><b>무대</b></span>가 어디인가?’와 같이 작은 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="9" data-k="9"><i>9</i><b>요소</b></span>로 분해하여 토대로 삼음.</p>
+      </div>
+      <div class="card eng">
+        <div class="hd"><svg class="ic" viewBox="0 0 64 64"><use href="#i-envelope"/></svg><h2 style="font-size:46px">‘<span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="10" data-k="10"><i>10</i><b>협업 필터링</b></span>’ 알고리즘</h2></div>
+        <p class="t" style="font-size:36px">취급하는 상품에 대해 알 필요가 없다는 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="11" data-k="11"><i>11</i><b>장점</b></span>이 있음. 상품을 임의의 내용물이 담긴 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="12" data-k="12"><i>12</i><b>봉투</b></span>로 간주하고 오직 사용자의 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="13" data-k="13"><i>13</i><b>소비 기록</b></span>만을 주목함.</p>
+      </div>
+    </div>
+    <div class="card dark" style="padding:24px 38px"><p class="t" style="font-size:38px">오늘날 실제로 쓰이는 추천 알고리즘의 대다수는 이 두 알고리즘의 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="14" data-k="14"><i>14</i><b>조합</b></span>임.</p></div>
+  </div>
+</section>
+
+<!-- ================= 8. 중간 2 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>문단별 핵심 내용 파악하기</h1><span class="sub">교과서 92~93쪽</span><span class="pill">활동 1 · 중간 2</span></div>
+  <div class="body">
+    <div class="row" style="flex:1">
+      <div class="card" style="width:1090px">
+        <div class="ct"><h2 style="font-size:46px">중간 2</h2><small>92~93쪽</small></div>
+        <ul class="bl m">
+          <li><strong>협업 필터링의 논리:</strong> 과거에 내가 본 영화들에 별점 1~5개를 부여했을 때, 나와 유사하게 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="15" data-k="15"><i>15</i><b>별점</b></span>을 매긴 다른 사용자가 최신 영화에 별점 5개를 주었다면 그 영화는 내 마음에 들 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="16" data-k="16"><i>16</i><b>확률</b></span>이 높음.</li>
+          <li><strong>핵심 과제와 전제 조건:</strong> 수많은 사용자 중 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="17" data-k="17"><i>17</i><b>취향</b></span>이 나와 최대한 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="18" data-k="18"><i>18</i><b>가까운</b></span> 사람을 찾아내는 것이 핵심 과제이며, 이때 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="19" data-k="19"><i>19</i><b>모두가</b></span> 점수를 매긴 상품에 한해서만 비교할 수 있음.</li>
+          <li><strong>출발점 예시:</strong> 두 편의 영화 〈타이타닉〉과 〈스타워즈〉에 대해 네 명의 고객(안네, 벤, 클라우디아, 데니스)이 매긴 별점을 비교함. (안네: 〈타이타닉〉 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="20" data-k="20"><i>20</i><b>4.5</b></span>점, 〈스타워즈〉 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="21" data-k="21"><i>21</i><b>1</b></span>점)</li>
+        </ul>
+      </div>
+      <div class="card grow" style="padding:26px 26px">
+        <div class="ct" style="margin-bottom:12px"><h2 style="font-size:40px">별점이 닮은 사람</h2></div>
+        <div class="rt">
+          <div></div><div class="h">나</div><div class="h">비슷한 사용자</div>
+          <div class="mv">영화 A</div><div class="s">★★★★★</div><div class="s">★★★★★</div>
+          <div class="mv">영화 B</div><div class="s">★★<u>★★★</u></div><div class="s">★<u>★★★★</u></div>
+          <div class="mv">영화 C</div><div class="s">★★★★<u>★</u></div><div class="s">★★★★<u>★</u></div>
+          <div class="mv new">최신 영화</div><div class="s new"><span class="qm">?</span></div><div class="s new">★★★★★</div>
+        </div>
+        <p style="margin-top:26px;font-size:36px;line-height:1.6;font-weight:700;color:var(--brown)">나도 이 영화를 좋아할까?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 9. 중간 3-① ================= -->
+<section class="slide">
+  <div class="hdr"><h1>사용자 간 ‘가까움(유사도)’ 계산하기</h1><span class="sub">교과서 93~94쪽</span><span class="pill">활동 1 · 중간 3 ①</span></div>
+  <div class="body"><div class="row" style="height:872px">
+    <div class="card col" style="justify-content:center;width:930px;gap:22px">
+      <div class="ct" style="margin:0"><h2><span class="tag k">첫 번째 방법</span> 차이의 합산</h2></div>
+      <p class="t" style="font-size:40px;line-height:1.75">각 영화에 매긴 별점 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="22" data-k="22"><i>22</i><b>차이</b></span>의 절댓값을 구해 모두 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="23" data-k="23"><i>23</i><b>더</b></span>하는 방법. 이 값이 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="24" data-k="24"><i>24</i><b>작을</b></span>수록 두 사람의 취향이 가까움.</p>
+      <div class="callout" style="font-size:35px;line-height:1.7"><span style="color:var(--brown)">예)</span> 벤 (2.5, 3.5)과 데니스 (4.5, 2.5)<br>|2.5 − 4.5| + |3.5 − 2.5| = 2 + 1 = <b>3</b></div>
+      <p class="t" style="font-size:34px;color:var(--sub);line-height:1.7">바둑판처럼 반듯한 길을 달리는 택시처럼, 가로로 간 거리와 세로로 간 거리를 더한다고 생각하면 쉽다.</p>
+    </div>
+    <div class="card grow" style="padding:14px"><svg class="plane" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="두 영화의 별점을 축으로 한 좌표 평면"><defs><marker id="txa" markerUnits="userSpaceOnUse" markerWidth="30" markerHeight="30" viewBox="0 0 12 12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12z" fill="#1C1C1C"/></marker><marker id="txb" markerUnits="userSpaceOnUse" markerWidth="30" markerHeight="30" viewBox="0 0 12 12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12z" fill="#A8875A"/></marker><marker id="txc" markerUnits="userSpaceOnUse" markerWidth="30" markerHeight="30" viewBox="0 0 12 12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12z" fill="#6B6B68"/></marker></defs><line class="gl" x1="100" y1="620" x2="100" y2="60"/><line class="gl" x1="100" y1="620" x2="660" y2="620"/><line class="gl" x1="212" y1="620" x2="212" y2="60"/><line class="gl" x1="100" y1="508" x2="660" y2="508"/><line class="gl" x1="324" y1="620" x2="324" y2="60"/><line class="gl" x1="100" y1="396" x2="660" y2="396"/><line class="gl" x1="436" y1="620" x2="436" y2="60"/><line class="gl" x1="100" y1="284" x2="660" y2="284"/><line class="gl" x1="548" y1="620" x2="548" y2="60"/><line class="gl" x1="100" y1="172" x2="660" y2="172"/><line class="gl" x1="660" y1="620" x2="660" y2="60"/><line class="gl" x1="100" y1="60" x2="660" y2="60"/><line class="ax" x1="100" y1="620" x2="694" y2="620"/><line class="ax" x1="100" y1="620" x2="100" y2="26"/><path d="M704 620 l-16 -10 v20z" fill="#1C1C1C"/><path d="M100 16 l-10 16 h20z" fill="#1C1C1C"/><text class="tk" style="font-size:28px" x="212" y="658" text-anchor="middle">1</text><text class="tk" style="font-size:28px" x="84" y="518" text-anchor="end">1</text><text class="tk" style="font-size:28px" x="324" y="658" text-anchor="middle">2</text><text class="tk" style="font-size:28px" x="84" y="406" text-anchor="end">2</text><text class="tk" style="font-size:28px" x="436" y="658" text-anchor="middle">3</text><text class="tk" style="font-size:28px" x="84" y="294" text-anchor="end">3</text><text class="tk" style="font-size:28px" x="548" y="658" text-anchor="middle">4</text><text class="tk" style="font-size:28px" x="84" y="182" text-anchor="end">4</text><text class="tk" style="font-size:28px" x="660" y="658" text-anchor="middle">5</text><text class="tk" style="font-size:28px" x="84" y="70" text-anchor="end">5</text><text class="an" style="font-size:30px" x="380" y="708" text-anchor="middle">〈타이타닉〉 별점</text><text class="an" style="font-size:30px" x="34" y="340" text-anchor="middle" transform="rotate(-90 34 340)">〈스타워즈〉 별점</text><path class="draw loopD" pathLength="1" stroke="#A8875A" stroke-width="12" d="M604 340 H380 V228"/><text class="lab loopL d2" x="492" y="386" text-anchor="middle">가로 차이 2</text><text class="lab loopL d3" x="362" y="294" text-anchor="end">세로 차이 1</text><text class="lab loopL d3" style="font-size:36px;fill:#1C1C1C" x="122" y="72">2 + 1 = 3</text><circle class="dot" cx="380" cy="228" r="15"/><text class="pt" style="font-size:32px" x="402" y="212" text-anchor="start">벤 (2.5, 3.5)</text><circle class="dot" cx="604" cy="340" r="15"/><text class="pt" style="font-size:32px" x="630" y="314" text-anchor="end">데니스 (4.5, 2.5)</text></svg></div>
+  </div></div>
+</section>
+
+<!-- ================= 10. 중간 3-② ================= -->
+<section class="slide">
+  <div class="hdr"><h1>사용자 간 ‘가까움(유사도)’ 계산하기</h1><span class="sub">교과서 93~94쪽</span><span class="pill">활동 1 · 중간 3 ②</span></div>
+  <div class="body"><div class="row" style="height:872px">
+    <div class="card col" style="justify-content:center;width:930px;gap:22px">
+      <div class="ct" style="margin:0"><h2><span class="tag k">두 번째 방법</span> 기하학적 직선거리</h2></div>
+      <p class="t" style="font-size:37px;line-height:1.75">두 영화를 두 개의 축으로 하는 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="25" data-k="25"><i>25</i><b>좌표 평면</b></span>에 각 사용자의 별점을 점으로 표시하고, <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="26" data-k="26"><i>26</i><b>피타고라스</b></span>의 정리를 이용해 두 점 사이의 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="27" data-k="27"><i>27</i><b>직선거리</b></span>를 구하는 방법.<br>(식: 각 별점 차이를 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="28" data-k="28"><i>28</i><b>제곱</b></span>하여 더한 뒤 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="29" data-k="29"><i>29</i><b>제곱근</b></span>을 씌움)</p>
+      <div class="callout" style="font-size:35px;line-height:1.7"><span style="color:var(--brown)">예)</span> 벤과 데니스: 가로 차이 2, 세로 차이 1<br>√(2² + 1²) = √5 ≈ <b>2.2</b></div>
+    </div>
+    <div class="card grow" style="padding:14px"><svg class="plane" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="두 영화의 별점을 축으로 한 좌표 평면"><defs><marker id="eua" markerUnits="userSpaceOnUse" markerWidth="30" markerHeight="30" viewBox="0 0 12 12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12z" fill="#1C1C1C"/></marker><marker id="eub" markerUnits="userSpaceOnUse" markerWidth="30" markerHeight="30" viewBox="0 0 12 12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12z" fill="#A8875A"/></marker><marker id="euc" markerUnits="userSpaceOnUse" markerWidth="30" markerHeight="30" viewBox="0 0 12 12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12z" fill="#6B6B68"/></marker></defs><line class="gl" x1="100" y1="620" x2="100" y2="60"/><line class="gl" x1="100" y1="620" x2="660" y2="620"/><line class="gl" x1="212" y1="620" x2="212" y2="60"/><line class="gl" x1="100" y1="508" x2="660" y2="508"/><line class="gl" x1="324" y1="620" x2="324" y2="60"/><line class="gl" x1="100" y1="396" x2="660" y2="396"/><line class="gl" x1="436" y1="620" x2="436" y2="60"/><line class="gl" x1="100" y1="284" x2="660" y2="284"/><line class="gl" x1="548" y1="620" x2="548" y2="60"/><line class="gl" x1="100" y1="172" x2="660" y2="172"/><line class="gl" x1="660" y1="620" x2="660" y2="60"/><line class="gl" x1="100" y1="60" x2="660" y2="60"/><line class="ax" x1="100" y1="620" x2="694" y2="620"/><line class="ax" x1="100" y1="620" x2="100" y2="26"/><path d="M704 620 l-16 -10 v20z" fill="#1C1C1C"/><path d="M100 16 l-10 16 h20z" fill="#1C1C1C"/><text class="tk" style="font-size:28px" x="212" y="658" text-anchor="middle">1</text><text class="tk" style="font-size:28px" x="84" y="518" text-anchor="end">1</text><text class="tk" style="font-size:28px" x="324" y="658" text-anchor="middle">2</text><text class="tk" style="font-size:28px" x="84" y="406" text-anchor="end">2</text><text class="tk" style="font-size:28px" x="436" y="658" text-anchor="middle">3</text><text class="tk" style="font-size:28px" x="84" y="294" text-anchor="end">3</text><text class="tk" style="font-size:28px" x="548" y="658" text-anchor="middle">4</text><text class="tk" style="font-size:28px" x="84" y="182" text-anchor="end">4</text><text class="tk" style="font-size:28px" x="660" y="658" text-anchor="middle">5</text><text class="tk" style="font-size:28px" x="84" y="70" text-anchor="end">5</text><text class="an" style="font-size:30px" x="380" y="708" text-anchor="middle">〈타이타닉〉 별점</text><text class="an" style="font-size:30px" x="34" y="340" text-anchor="middle" transform="rotate(-90 34 340)">〈스타워즈〉 별점</text><path class="draw loopD" pathLength="1" stroke="#A8875A" stroke-width="9" d="M604 340 H380 V228"/><path class="draw loopD d2" pathLength="1" stroke="#1C1C1C" stroke-width="9" d="M604 340 L380 228"/><path class="loopL d3" fill="none" stroke="#6B6B68" stroke-width="3" d="M410 340 v-30 h-30"/><text class="lab loopL" x="492" y="382" text-anchor="middle">2</text><text class="lab loopL" x="360" y="294" text-anchor="end">1</text><text class="lab loopL d3" x="500" y="252" text-anchor="start" transform="rotate(-27 500 252)">직선거리 √5</text><text class="lab loopL d3" style="font-size:36px;fill:#1C1C1C" x="122" y="72">√(2² + 1²) ≈ 2.2</text><circle class="dot" cx="380" cy="228" r="15"/><text class="pt" style="font-size:32px" x="402" y="212" text-anchor="start">벤 (2.5, 3.5)</text><circle class="dot" cx="604" cy="340" r="15"/><text class="pt" style="font-size:32px" x="630" y="424" text-anchor="end">데니스 (4.5, 2.5)</text></svg></div>
+  </div></div>
+</section>
+
+<!-- ================= 11. 중간 3-③ ================= -->
+<section class="slide">
+  <div class="hdr"><h1>사용자 간 ‘가까움(유사도)’ 계산하기</h1><span class="sub">교과서 94쪽</span><span class="pill">활동 1 · 중간 3 ③</span></div>
+  <div class="body"><div class="row" style="height:872px">
+    <div class="card col" style="justify-content:center;width:930px;gap:20px">
+      <div class="ct" style="margin:0"><h2><span class="tag k">세 번째 방법</span> 화살표 사이 각도</h2></div>
+      <p class="t" style="font-size:35px;line-height:1.7">원점(0,0)에서 각 사용자의 점으로 그은 두 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="30" data-k="30"><i>30</i><b>화살표</b></span>가 이루는 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="31" data-k="31"><i>31</i><b>각도</b></span>를 측정하는 방법. 후하게 점수를 주는 사람과 박하게 주는 사람처럼 별점의 절대적 크기가 달라도 선호하는 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="32" data-k="32"><i>32</i><b>비율</b></span>이 같으면 각도가 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="33" data-k="33"><i>33</i><b>0</b></span>도가 되어 가장 가까운 취향으로 판단됨.</p>
+      <div class="callout" style="font-size:33px;line-height:1.65"><strong style="color:var(--brown)">방법의 선택:</strong> 세 방법 중 절대적으로 옳은 것은 없으며, <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="34" data-k="34"><i>34</i><b>실제 데이터</b></span>를 가지고 시험하여 가장 적합한 것을 선택함.</div>
+    </div>
+    <div class="card grow" style="padding:14px"><svg class="plane" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="두 영화의 별점을 축으로 한 좌표 평면"><defs><marker id="ana" markerUnits="userSpaceOnUse" markerWidth="30" markerHeight="30" viewBox="0 0 12 12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12z" fill="#1C1C1C"/></marker><marker id="anb" markerUnits="userSpaceOnUse" markerWidth="30" markerHeight="30" viewBox="0 0 12 12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12z" fill="#A8875A"/></marker><marker id="anc" markerUnits="userSpaceOnUse" markerWidth="30" markerHeight="30" viewBox="0 0 12 12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12z" fill="#6B6B68"/></marker></defs><line class="gl" x1="100" y1="620" x2="100" y2="60"/><line class="gl" x1="100" y1="620" x2="660" y2="620"/><line class="gl" x1="212" y1="620" x2="212" y2="60"/><line class="gl" x1="100" y1="508" x2="660" y2="508"/><line class="gl" x1="324" y1="620" x2="324" y2="60"/><line class="gl" x1="100" y1="396" x2="660" y2="396"/><line class="gl" x1="436" y1="620" x2="436" y2="60"/><line class="gl" x1="100" y1="284" x2="660" y2="284"/><line class="gl" x1="548" y1="620" x2="548" y2="60"/><line class="gl" x1="100" y1="172" x2="660" y2="172"/><line class="gl" x1="660" y1="620" x2="660" y2="60"/><line class="gl" x1="100" y1="60" x2="660" y2="60"/><line class="ax" x1="100" y1="620" x2="694" y2="620"/><line class="ax" x1="100" y1="620" x2="100" y2="26"/><path d="M704 620 l-16 -10 v20z" fill="#1C1C1C"/><path d="M100 16 l-10 16 h20z" fill="#1C1C1C"/><text class="tk" style="font-size:28px" x="212" y="658" text-anchor="middle">1</text><text class="tk" style="font-size:28px" x="84" y="518" text-anchor="end">1</text><text class="tk" style="font-size:28px" x="324" y="658" text-anchor="middle">2</text><text class="tk" style="font-size:28px" x="84" y="406" text-anchor="end">2</text><text class="tk" style="font-size:28px" x="436" y="658" text-anchor="middle">3</text><text class="tk" style="font-size:28px" x="84" y="294" text-anchor="end">3</text><text class="tk" style="font-size:28px" x="548" y="658" text-anchor="middle">4</text><text class="tk" style="font-size:28px" x="84" y="182" text-anchor="end">4</text><text class="tk" style="font-size:28px" x="660" y="658" text-anchor="middle">5</text><text class="tk" style="font-size:28px" x="84" y="70" text-anchor="end">5</text><text class="an" style="font-size:30px" x="380" y="708" text-anchor="middle">〈타이타닉〉 별점</text><text class="an" style="font-size:30px" x="34" y="340" text-anchor="middle" transform="rotate(-90 34 340)">〈스타워즈〉 별점</text><path class="draw loopD" pathLength="1" stroke="#1C1C1C" stroke-width="8" marker-end="url(#ana)" d="M100 620 L542 399"/><path class="draw loopD d2" pathLength="1" stroke="#A8875A" stroke-width="8" marker-end="url(#anb)" d="M100 620 L318 511"/><path class="draw loopD d2" pathLength="1" stroke="#6B6B68" stroke-width="8" marker-end="url(#anc)" d="M100 620 L210.5 178"/><path class="loopL d3" fill="none" stroke="#6B5535" stroke-width="5" d="M234.2 552.9 A150 150 0 0 0 136.4 474.5"/><text class="lab loopL d3" x="206" y="470">각도 ↑ 멀어짐</text><text class="lab loopL d3" style="fill:#1C1C1C" x="316" y="416">두 화살표의 각도 = 0°</text><circle class="dot" cx="100" cy="620" r="10"/><text class="pt" x="556" y="370" text-anchor="end">후한 사람 (4, 2)</text><text class="pt" x="340" y="560" text-anchor="start">박한 사람 (2, 1)</text><text class="pt" x="236" y="176" text-anchor="start">다른 취향 (1, 4)</text></svg></div>
+  </div></div>
+</section>
+
+<!-- ================= 12. 중간 4 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>문단별 핵심 내용 파악하기</h1><span class="sub">교과서 94~95쪽</span><span class="pill">활동 1 · 중간 4</span></div>
+  <div class="body"><div class="row" style="height:872px">
+    <div class="card" style="width:1030px">
+      <div class="ct"><h2 style="font-size:46px">중간 4</h2><small>94~95쪽</small></div>
+      <ul class="bl m">
+        <li><strong>다차원 공간으로의 확장:</strong> 영화가 3편이면 3차원 공간, n편이면 n차원 공간에서도 동일한 수학 공식으로 거리를 계산할 수 있음.</li>
+        <li><strong>현실적 난관(빈칸 문제):</strong> 실제 온라인 상점에는 수만 개의 상품이 있지만 사용자가 점수를 매긴 상품은 극히 일부여서, 거대한 데이터 표의 대부분이 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="35" data-k="35"><i>35</i><b>빈칸</b></span>으로 남게 됨.</li>
+        <li><strong>해결 원리:</strong> 모든 영화나 노래를 낱개로 비교하는 대신, 서로 관련 있는 상품들을 약 20개 정도의 범주(차원)로 묶어 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="36" data-k="36"><i>36</i><b>차원 축소</b></span>를 함으로써 빈칸을 메우고 계산량을 획기적으로 줄임.</li>
+      </ul>
+    </div>
+    <div class="card grow col" style="gap:10px;padding:24px 28px">
+      <div style="font-size:28px;font-weight:700;text-align:center">수만 개의 상품 × 수많은 사용자</div>
+      <div class="grid1"><span class=""></span><span class=""></span><span class=""></span><span class="f"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="f"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="f"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="f"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="f"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="f"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="f"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="f"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="f"></span><span class=""></span><span class=""></span><span class=""></span></div>
+      <div style="font-size:26px;color:var(--sub);text-align:center">점수를 매긴 칸은 극히 일부</div>
+      <div class="bigarr" style="transform:rotate(90deg);height:56px">→</div>
+      <div class="fx" data-for="36" style="font-size:28px;font-weight:700;text-align:center;color:var(--brown);margin-top:-4px">약 20개 범주로 묶는다</div>
+      <div class="grid2" style="width:360px;margin:0 auto"><span style="--i:0"></span><span style="--i:1"></span><span style="--i:2"></span><span style="--i:3"></span><span style="--i:4"></span><span style="--i:5"></span><span style="--i:6"></span><span style="--i:7"></span><span style="--i:8"></span><span style="--i:9"></span><span style="--i:10"></span><span style="--i:11"></span><span style="--i:12"></span><span style="--i:13"></span><span style="--i:14"></span><span style="--i:15"></span><span style="--i:16"></span><span style="--i:17"></span><span style="--i:18"></span><span style="--i:19"></span><span style="--i:20"></span><span style="--i:21"></span><span style="--i:22"></span><span style="--i:23"></span><span style="--i:24"></span><span style="--i:25"></span><span style="--i:26"></span><span style="--i:27"></span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= 13. 끝 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>문단별 핵심 내용 파악하기</h1><span class="sub">교과서 95쪽 마지막</span><span class="pill">활동 1 · 끝</span></div>
+  <div class="body"><div class="row" style="height:872px">
+    <div class="card" style="width:1090px">
+      <div class="ct"><h2 style="font-size:50px">끝</h2><small>95쪽 마지막</small></div>
+      <ul class="bl xl">
+        <li><strong>현재 추천 시스템의 한계:</strong> 과거에 사용자가 좋아했던 것을 주로 추천하므로 기존 취향의 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="37" data-k="37"><i>37</i><b>울타리</b></span> 안에 머물게 됨.</li>
+        <li><strong>해결해야 할 미래 과제:</strong> 이제까지의 시청 습관과 결별하고 익숙한 구역 바깥에 있으면서도 아예 엉뚱하지는 않은 작품을 추천해 주는 ‘<span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="38" data-k="38"><i>38</i><b>뜻밖의 발견</b></span>’을 알고리즘에 집어넣는 것임. 나와 친한 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="39" data-k="39"><i>39</i><b>친구</b></span>들은 이런 추천을 할 수 있지만 현재의 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-n="40" data-k="40"><i>40</i><b>컴퓨터</b></span>에게는 아직 아주 어려운 과제임.</li>
+      </ul>
+    </div>
+    <div class="card grow" style="padding:10px">
+      <svg id="fence" viewBox="0 0 560 800" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle class="fenc" data-for="37" cx="260" cy="470" r="215"/>
+        <g class="orb" style="transform-origin:260px 470px"><circle cx="260" cy="340" r="16" fill="#C9B18B"/><circle cx="372" cy="535" r="16" fill="#1C1C1C"/><circle cx="148" cy="535" r="16" fill="#A8875A"/></g>
+        <g class="orb r2" style="transform-origin:260px 470px"><circle cx="260" cy="278" r="11" fill="#A8875A"/><circle cx="430" cy="470" r="11" fill="#C9B18B"/><circle cx="260" cy="662" r="11" fill="#1C1C1C"/></g>
+        <svg x="205" y="395" width="110" height="110" viewBox="0 0 64 64" class="ic" style="color:#1C1C1C"><use href="#i-person"/></svg>
+        <text x="260" y="742" text-anchor="middle" font-size="30" font-weight="700" fill="#6B5535" style="font-family:inherit">기존 취향의 울타리</text>
+        <g class="glowb" data-for="38"><svg x="420" y="60" width="110" height="110" viewBox="0 0 64 64" class="ic" style="color:#6B5535"><use href="#i-book"/></svg></g>
+        <text class="fx" data-for="38" x="476" y="206" text-anchor="middle" font-size="28" font-weight="700" fill="#1C1C1C" style="font-family:inherit">뜻밖의 발견</text>
+        <text x="476" y="48" text-anchor="middle" font-size="32" font-weight="700" fill="#C9B18B" style="font-family:inherit">?</text>
+        <path d="M385 300 C 420 250, 450 220, 470 190" fill="none" stroke="#C9B18B" stroke-width="5" stroke-dasharray="4 14" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= 14. 활동 2 개념 정리 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>글의 내용 이해하기</h1><span class="sub">96쪽 1번</span><span class="pill">활동 2 · 개념 정리</span></div>
+  <div class="body">
+    <div class="callout" style="font-size:33px">〈보기〉의 어휘를 모두 활용하여 ‘내용 기반 필터링’ 알고리즘과 ‘협업 필터링’ 알고리즘의 개념을 정리해 보자.</div>
+    <div class="chips"><span class="tag k" style="font-size:32px">〈보기〉</span><span class="chip" data-w="상품">상품</span><span class="chip" data-w="소비">소비</span><span class="chip" data-w="추천">추천</span><span class="chip" data-w="지식">지식</span><span class="chip" data-w="기록">기록</span><span style="font-size:26px;color:var(--sub)">쓰인 어휘는 ✓ 표시</span></div>
+    <div class="card" style="display:flex;gap:30px;align-items:center;padding:26px 38px;flex:1">
+      <div style="width:250px;flex:none;background:var(--ink);color:#fff;border-radius:12px;padding:22px 18px;text-align:center;font-size:36px;font-weight:700;line-height:1.35">내용 기반<br>필터링</div>
+      <p class="t" style="font-size:38px;line-height:1.75">취급하는 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>상품</b></span>에 대해서 많은 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>지식</b></span>을 보유하고, 상품을 작은 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>내용 요소</b></span>로 분해하여 그것을 새로운 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>추천</b></span>의 기반으로 삼는 알고리즘이다.</p>
+    </div>
+    <div class="card" style="display:flex;gap:30px;align-items:center;padding:26px 38px;flex:1">
+      <div style="width:250px;flex:none;background:var(--mid);color:#fff;border-radius:12px;padding:22px 18px;text-align:center;font-size:36px;font-weight:700;line-height:1.35">협업<br>필터링</div>
+      <p class="t" style="font-size:38px;line-height:1.75">취급하는 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>상품</b></span>에 대해서 알 필요 없이 상품을 임의의 내용물이 담긴 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>봉투</b></span>로 간주하고, 오직 사용자의 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>소비</b></span> <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>기록</b></span>만을 주목하여 취향이 비슷한 다른 사용자의 평가를 바탕으로 새로운 상품을 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>추천</b></span>하는 알고리즘이다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 15. 글쓴이의 질문과 답변 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>글의 내용 이해하기</h1><span class="sub">글쓴이의 질문과 답변</span><span class="pill">활동 2 · Q&amp;A</span></div>
+  <div class="body">
+    <div class="tbl c2" style="grid-template-columns:440px 1fr">
+      <div class="h" style="grid-column:1">항목</div><div class="h" style="border-right:0">설명</div>
+      <div class="k" style="font-size:38px"><span>어떤 방법이 옳을까?</span><small>(94쪽)</small></div>
+      <div style="font-size:38px"><div class="cell">세 방법 중 어느 하나만 절대적으로 옳다고 할 수 없고, 확보된 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>실제 데이터</b></span>로 시험해 가장 잘 맞는 방법을 선택한다.</div></div>
+      <div class="k" style="font-size:38px"><span>점수 안 매긴 상품은?</span><small>(95쪽)</small></div>
+      <div style="font-size:38px"><div class="cell">수만 개의 상품을 약 20개 범주로 묶어 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>차원 축소</b></span>함으로써 데이터 표의 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>빈칸</b></span> 문제를 해결하고 계산을 단순화한다.</div></div>
+      <div class="k" style="font-size:38px"><span>익숙한 구역 바깥 추천은?</span><small>(95쪽)</small></div>
+      <div style="font-size:38px"><div class="cell">현재는 기존 취향의 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>울타리</b></span> 안에 머물러, 컴퓨터가 ‘<span class="blank" role="button" tabindex="0" aria-pressed="false"><b>뜻밖의 발견</b></span>’을 해내는 것은 아직 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>어려운 과제</b></span>이다.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 16. 가까움 계산 원리 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>기술 공학적 원리 적용하기</h1><span class="sub">97쪽 2번</span><span class="pill">활동 3 · 가까움 계산 원리</span></div>
+  <div class="body">
+    <div class="tbl c3 big" style="grid-template-columns:350px 1fr 1fr">
+      <div class="h">구분</div><div class="h">내용</div><div class="h">특징</div>
+      <div class="k" style="flex-direction:row;align-items:center;gap:14px;font-size:30px"><svg class="ico" style="width:84px;height:84px" viewBox="0 0 64 64"><path class="ic" d="M8 52H34V30H56V10" style="stroke:#A8875A;stroke-width:6"/><circle cx="8" cy="52" r="5" fill="#1C1C1C"/><circle cx="56" cy="10" r="5" fill="#1C1C1C"/></svg><span>첫 번째<small style="display:block">(차이 합산)</small></span></div>
+      <div><div class="cell">각 상품에 매긴 두 사용자의 별점 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>차이</b></span>의 절댓값을 구해 모두 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>더함</b></span>.</div></div>
+      <div><div class="cell">합산한 수치가 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>작을</b></span>수록 취향이 가깝다.</div></div>
+      <div class="k" style="flex-direction:row;align-items:center;gap:14px;font-size:30px"><svg class="ico" style="width:84px;height:84px" viewBox="0 0 64 64"><path class="ic" d="M8 52L56 10" style="stroke:#1C1C1C;stroke-width:5"/><path class="ic" d="M8 52H56V10" style="stroke:#C9B18B;stroke-width:4"/><circle cx="8" cy="52" r="5" fill="#1C1C1C"/><circle cx="56" cy="10" r="5" fill="#1C1C1C"/></svg><span>두 번째<small style="display:block">(기하학적 거리)</small></span></div>
+      <div><div class="cell">별점을 좌표 평면 위의 점으로 나타내고 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>피타고라스</b></span>의 정리로 두 점 사이의 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>직선거리</b></span>를 구함.</div></div>
+      <div><div class="cell">직선거리가 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>짧을</b></span>수록 취향이 가깝다.</div></div>
+      <div class="k" style="flex-direction:row;align-items:center;gap:14px;font-size:30px"><svg class="ico" style="width:84px;height:84px" viewBox="0 0 64 64"><path class="ic" d="M8 54L56 22" style="stroke:#1C1C1C;stroke-width:5"/><path class="ic" d="M8 54L30 12" style="stroke:#A8875A;stroke-width:5"/><path class="ic" d="M26 40A20 20 0 0 1 22 30" style="stroke:#6B5535;stroke-width:4"/></svg><span>세 번째<small style="display:block">(화살표 각도)</small></span></div>
+      <div><div class="cell">원점에서 각 사용자의 좌표로 향하는 두 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>화살표</b></span>가 이루는 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>각도</b></span>를 측정함.</div></div>
+      <div><div class="cell">각도가 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>0</b></span>도에 가까울수록 취향의 경향성이 일치한다.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 17. 실전 계산 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>기술 공학적 원리 적용하기</h1><span class="sub">97쪽 2번</span><span class="pill">활동 3 · 실전 계산</span></div>
+  <div class="body">
+    <div class="callout" style="font-size:28px;padding:12px 26px">영화 〈타이타닉〉과 〈스타워즈〉에 대한 네 고객의 별점이 다음과 같을 때 빈칸을 계산해 보자.<br>안네 (4.5, 1) / 벤 (2.5, 3.5) / 클라우디아 (1, 5) / 데니스 (4.5, 2.5) <span style="color:var(--sub)">※ (타이타닉, 스타워즈)</span></div>
+    <div class="row" style="flex:1">
+      <div class="card" style="width:700px;padding:12px;display:flex;flex-direction:column;gap:6px">
+        <div style="flex:1;min-height:0"><svg class="plane" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="두 영화의 별점을 축으로 한 좌표 평면"><defs><marker id="pra" markerUnits="userSpaceOnUse" markerWidth="30" markerHeight="30" viewBox="0 0 12 12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12z" fill="#1C1C1C"/></marker><marker id="prb" markerUnits="userSpaceOnUse" markerWidth="30" markerHeight="30" viewBox="0 0 12 12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12z" fill="#A8875A"/></marker><marker id="prc" markerUnits="userSpaceOnUse" markerWidth="30" markerHeight="30" viewBox="0 0 12 12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12z" fill="#6B6B68"/></marker></defs><line class="gl" x1="100" y1="620" x2="100" y2="60"/><line class="gl" x1="100" y1="620" x2="660" y2="620"/><line class="gl" x1="212" y1="620" x2="212" y2="60"/><line class="gl" x1="100" y1="508" x2="660" y2="508"/><line class="gl" x1="324" y1="620" x2="324" y2="60"/><line class="gl" x1="100" y1="396" x2="660" y2="396"/><line class="gl" x1="436" y1="620" x2="436" y2="60"/><line class="gl" x1="100" y1="284" x2="660" y2="284"/><line class="gl" x1="548" y1="620" x2="548" y2="60"/><line class="gl" x1="100" y1="172" x2="660" y2="172"/><line class="gl" x1="660" y1="620" x2="660" y2="60"/><line class="gl" x1="100" y1="60" x2="660" y2="60"/><line class="ax" x1="100" y1="620" x2="694" y2="620"/><line class="ax" x1="100" y1="620" x2="100" y2="26"/><path d="M704 620 l-16 -10 v20z" fill="#1C1C1C"/><path d="M100 16 l-10 16 h20z" fill="#1C1C1C"/><text class="tk" style="font-size:33px" x="212" y="665" text-anchor="middle">1</text><text class="tk" style="font-size:33px" x="84" y="519.8" text-anchor="end">1</text><text class="tk" style="font-size:33px" x="324" y="665" text-anchor="middle">2</text><text class="tk" style="font-size:33px" x="84" y="407.8" text-anchor="end">2</text><text class="tk" style="font-size:33px" x="436" y="665" text-anchor="middle">3</text><text class="tk" style="font-size:33px" x="84" y="295.8" text-anchor="end">3</text><text class="tk" style="font-size:33px" x="548" y="665" text-anchor="middle">4</text><text class="tk" style="font-size:33px" x="84" y="183.8" text-anchor="end">4</text><text class="tk" style="font-size:33px" x="660" y="665" text-anchor="middle">5</text><text class="tk" style="font-size:33px" x="84" y="71.8" text-anchor="end">5</text><text class="an" style="font-size:35px" x="380" y="708" text-anchor="middle">〈타이타닉〉 별점</text><text class="an" style="font-size:35px" x="34" y="340" text-anchor="middle" transform="rotate(-90 34 340)">〈스타워즈〉 별점</text><path class="draw fxd" pathLength="1" data-for="ab2" stroke="#1C1C1C" stroke-width="7" d="M604 508 L380 228"/><path class="draw fxd" pathLength="1" data-for="ad2" stroke="#1C1C1C" stroke-width="7" d="M604 508 L604 340"/><path class="draw fxd" pathLength="1" data-for="far" stroke="#6B6B68" stroke-width="6" d="M604 508 L212 60"/><path class="draw fxd" pathLength="1" data-for="ab1" stroke="#A8875A" stroke-width="12" d="M604 508 H380 V228"/><path class="draw fxd" pathLength="1" data-for="ad1" stroke="#A8875A" stroke-width="12" d="M592 508 V340"/><circle class="ring" data-for="near" cx="604" cy="340" r="34"/><circle class="ring" data-for="far" cx="212" cy="60" r="34"/><circle class="dot" cx="604" cy="508" r="18"/><text class="pt" style="font-size:38px" x="628" y="504" text-anchor="start">안네</text><circle class="dot" cx="380" cy="228" r="18"/><text class="pt" style="font-size:38px" x="404" y="212" text-anchor="start">벤</text><circle class="dot" cx="212" cy="60" r="18"/><text class="pt" style="font-size:38px" x="258" y="74" text-anchor="start">클라우디아</text><circle class="dot" cx="604" cy="340" r="18"/><text class="pt" style="font-size:38px" x="604" y="312" text-anchor="middle">데니스</text></svg></div>
+        <div class="legend"><span><i style="border-color:#A8875A"></i>차이 합산</span><span><i style="border-color:#1C1C1C"></i>직선거리</span></div>
+      </div>
+      <div class="card grow" style="padding:22px 34px">
+        <div style="font-size:34px;font-weight:700;color:var(--brown);margin-bottom:2px">① 첫 번째 방법 (별점 차이 합산)</div>
+        <p class="t" style="font-size:32px;line-height:1.85">- 안네와 벤: |4.5 − 2.5| + |1 − 3.5| = <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>2</b></span> + <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>2.5</b></span> = <span class="blank" role="button" tabindex="0" aria-pressed="false" data-k="ab1"><b>4.5</b></span><br>- 안네와 데니스: |4.5 − 4.5| + |1 − 2.5| = <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>0</b></span> + <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>1.5</b></span> = <span class="blank" role="button" tabindex="0" aria-pressed="false" data-k="ad1"><b>1.5</b></span></p>
+        <div style="font-size:34px;font-weight:700;color:var(--brown);margin:14px 0 2px">② 두 번째 방법 (피타고라스 직선거리)</div>
+        <p class="t" style="font-size:32px;line-height:1.85">- 안네와 벤: √(2² + 2.5²) = √(4 + 6.25) = √10.25 ≈ <span class="blank" role="button" tabindex="0" aria-pressed="false" data-k="ab2"><b>3.2</b></span><br>- 안네와 데니스: √(0² + 1.5²) = <span class="blank" role="button" tabindex="0" aria-pressed="false" data-k="ad2"><b>1.5</b></span></p>
+        <div style="font-size:34px;font-weight:700;color:var(--brown);margin:14px 0 2px">③ 결론</div>
+        <p class="t" style="font-size:34px;line-height:1.8">안네와 취향이 가장 가까운 사용자는 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-k="near"><b>데니스</b></span>, 가장 먼 사용자는 <span class="blank" role="button" tabindex="0" aria-pressed="false" data-k="far"><b>클라우디아</b></span>이다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 18. 취향 정보를 수집하는 이유 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>기술 공학적 원리 적용하기</h1><span class="sub">97쪽 2번</span><span class="pill">활동 3 · 정리</span></div>
+  <div class="body">
+    <div class="card">
+      <div class="ct"><h2>취향 정보를 수집하는 이유</h2></div>
+      <p class="t" style="font-size:30px;color:var(--sub);line-height:1.6;margin-bottom:8px">온라인 쇼핑몰, 동영상 플랫폼 등이 사용자의 취향 정보를 수집하는 까닭을 정리해 보자.</p>
+      <p class="t" style="font-size:38px;line-height:1.9">사용자의 검색·구매·시청 등 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>소비 기록</b></span> 데이터를 많이 확보할수록 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>협업 필터링</b></span> 알고리즘 등을 정교하게 작동시켜 맞춤형 상품이나 콘텐츠를 정확히 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>추천</b></span>할 수 있고, 이를 통해 사용자의 만족도와 플랫폼 이용 시간 및 기업의 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>이윤</b></span>을 극대화할 수 있기 때문이다.</p>
+    </div>
+    <div class="card" style="padding:30px 30px 24px">
+      <div class="cyc">
+        <div class="nd" style="--i:0">데이터 수집<small>검색·구매·시청</small></div><div class="ar">→</div>
+        <div class="nd" style="--i:1">정교한 추천<small>맞춤형 상품·콘텐츠</small></div><div class="ar">→</div>
+        <div class="nd" style="--i:2">만족도·이용 시간<small>사용자와 플랫폼</small></div><div class="ar">→</div>
+        <div class="nd" style="--i:3">기업의 이득<small>수익 극대화</small></div>
+      </div>
+      <div class="back"><span>더 많은 데이터가 쌓이고, 다시 처음으로</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 19. 카드뉴스 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>기술 공학적 원리 비판적으로 이해하기</h1><span class="sub">98쪽 3번</span><span class="pill">활동 4 · 카드 뉴스</span></div>
+  <div class="body">
+    <div class="callout" style="font-size:28px;padding:12px 26px">교과서 98쪽의 카드 뉴스 〈편한 인공 지능 알고리즘 속에 갇힌 우리들, 필터 버블〉을 읽고 빈칸과 표를 완성해 봅시다.</div>
+    <div class="tbl c3" style="grid-template-columns:330px 1fr 1fr">
+      <div class="h">구분</div><div class="h">내용</div><div class="h">특징</div>
+      <div class="k" style="flex-direction:row;align-items:center;gap:14px;font-size:29px"><svg class="ico" style="width:64px;height:64px" viewBox="0 0 64 64"><circle class="pulseD" style="animation-delay:0s" cx="14" cy="16" r="7" fill="#C9B18B"/><circle class="pulseD" style="animation-delay:.4s" cx="38" cy="12" r="7" fill="#1C1C1C"/><circle class="pulseD" style="animation-delay:.8s" cx="52" cy="30" r="7" fill="#A8875A"/><circle class="pulseD" style="animation-delay:1.2s" cx="22" cy="38" r="7" fill="#1C1C1C"/><circle class="pulseD" style="animation-delay:1.6s" cx="44" cy="52" r="7" fill="#C9B18B"/><circle class="pulseD" style="animation-delay:2s" cx="12" cy="56" r="6" fill="#A8875A"/></svg><span>1. 정보의 홍수</span></div>
+      <div><div class="cell">바야흐로 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>데이터</b></span>의 시대!</div></div>
+      <div><div class="cell">수많은 데이터와 콘텐츠 중 내가 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>원하는 정보</b></span>를 찾는 것은 쉽지 않은 일임.</div></div>
+      <div class="k" style="flex-direction:row;align-items:center;gap:14px;font-size:29px"><svg class="ico ic" style="width:64px;height:64px" viewBox="0 0 64 64"><path d="M8 12H56L38 34V54L26 48V34Z" style="stroke:#1C1C1C"/></svg><span>2. 알고리즘 도입</span></div>
+      <div><div class="cell">IT 기업들이 좋은 사용자 환경을 위해 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>개인 맞춤</b></span> 콘텐츠 추천 시스템을 도입함</div></div>
+      <div><div class="cell">사용자가 소비한 콘텐츠를 분석해 추천함.</div></div>
+      <div class="k" style="flex-direction:row;align-items:center;gap:14px;font-size:29px"><svg class="ico ic" style="width:64px;height:64px" viewBox="0 0 64 64"><circle class="bubw" cx="32" cy="32" r="26" style="stroke:#A8875A"/><circle cx="32" cy="26" r="7" style="stroke:#1C1C1C"/><path d="M20 46C23 38 27 36 32 36S41 38 44 46" style="stroke:#1C1C1C"/></svg><span>3. 필터 버블이란?</span></div>
+      <div><div class="cell">개인 맞춤 추천 때문에 사용자가 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>새로운 정보</b></span>에 접근하기 점점 어려워짐</div></div>
+      <div><div class="cell">자신의 취향에 맞는 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>특정 정보</b></span>만 소비하게 되는 부작용을 ‘<span class="blank" role="button" tabindex="0" aria-pressed="false"><b>필터 버블</b></span>’이라고 함.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 20. 효용과 한계 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>기술 공학적 원리 비판적으로 이해하기</h1><span class="sub">98쪽 3번</span><span class="pill">활동 4 · 효용과 한계</span></div>
+  <div class="body"><div class="row" style="gap:32px;height:872px">
+    <div class="col" style="width:848px;gap:22px">
+      <div class="hbar"><svg class="ic" viewBox="0 0 64 64"><use href="#i-star"/></svg>추천 알고리즘의 효용</div>
+      <div class="card eff"><span class="tag k">효용 1</span><p>수많은 정보 중 원하는 것을 찾는 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>시간</b></span>과 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>노력</b></span>을 덜어 주어 편리하다.</p></div>
+      <div class="card eff"><span class="tag k">효용 2</span><p>미처 몰랐던 내 취향에 맞는 유용한 콘텐츠를 쉽게 접할 수 있다.</p></div>
+    </div>
+    <div class="col" style="width:848px;gap:22px">
+      <div class="hbar gray"><svg class="ic" viewBox="0 0 64 64"><use href="#i-bubble"/></svg>추천 알고리즘의 한계</div>
+      <div class="card eff"><span class="tag">한계 1</span><p>기존 취향의 울타리, 곧 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>필터 버블</b></span> 안에 갇혀 다양한 관점이나 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>새로운 정보</b></span>를 접할 기회를 잃는다.</p></div>
+      <div class="card eff"><span class="tag">한계 2</span><p>자극적이거나 편향된 정보만 반복 소비하여 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>확증 편향</b></span>에 빠지거나 플랫폼에 중독될 위험이 있다.</p></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ================= 21. 연관 책과 자료 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>독서 방법 점검과 주제 탐구 독서</h1><span class="sub">95·99쪽</span><span class="pill">활동 5 · 연관 자료</span></div>
+  <div class="body" style="gap:24px">
+    <div class="row" style="gap:24px;height:424px">
+      <div class="bk grow"><h3>《추천 알고리즘의 과학》</h3><div class="au">박규하</div><p>추천 시스템을 이루는 기본적인 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>원리</b></span>와 발전 계기, 기업이 실제 활용하는 추천 시스템을 다룬 책.</p></div>
+      <div class="bk grow"><h3>《미래를 바꾼 아홉 가지 알고리즘》</h3><div class="au">존 맥코믹</div><p>다양한 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>비유</b></span>와 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>예</b></span>를 활용하여 컴퓨터 기술의 이론적 아이디어를 쉽고 정확하게 설명한 책.</p></div>
+    </div>
+    <div class="row" style="gap:24px;height:424px">
+      <div class="bk grow"><h3>《기계는 어떻게 생각하고 학습하는가》</h3><div class="au">뉴 사이언티스트 외</div><p>챗봇, 머신 러닝, 인공 지능 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>윤리</b></span> 등 인공 지능의 현재와 미래를 조망한 필수 지식 도서.</p></div>
+      <div class="bk grow"><h3>다큐멘터리 〈알고리즘 인류〉</h3><div class="au">영상 자료</div><p>인간을 <span class="blank" role="button" tabindex="0" aria-pressed="false"><b>중독</b></span>에 빠뜨리는 플랫폼 기업, 혐오를 부추기는 SNS 등 알고리즘에 지배받는 본성과 사회 갈등을 파헤친 영상 자료.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 22. 독서 방법 자기 점검 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>독서 방법 점검과 주제 탐구 독서</h1><span class="sub">독서 방법 자기 점검</span><span class="pill">활동 5 · 자기 점검</span></div>
+  <div class="body" style="gap:22px">
+    <div class="callout" style="font-size:33px;padding:12px 26px">내가 읽은 방법을 돌아보고, 상·중·하 중 하나를 눌러 표시해 보자.</div>
+    <div class="chk" style="min-height:200px"><div class="a">원리 파악</div><div class="q">핵심 개념과 수학적·기술적 작동 원리를 정확하게 파악하며 읽었는가?</div><div class="o"><button class="sel">상</button><button class="sel">중</button><button class="sel">하</button></div></div>
+    <div class="chk" style="min-height:200px"><div class="a">시각 자료 활용</div><div class="q">본문의 표와 그래프 등 시각적 보조 자료가 이해에 어떻게 도움이 되는지 확인하며 읽었는가?</div><div class="o"><button class="sel">상</button><button class="sel">중</button><button class="sel">하</button></div></div>
+    <div class="chk" style="min-height:200px"><div class="a">효용과 한계</div><div class="q">추천 알고리즘의 효용과 한계(필터 버블 등)를 균형 있고 비판적으로 이해하였는가?</div><div class="o"><button class="sel">상</button><button class="sel">중</button><button class="sel">하</button></div></div>
+  </div>
+</section>
+
+<!-- ================= 23. 정리 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>정리: 추천 시스템의 구조와 우리의 대응</h1><span class="sub">활동을 마치며</span><span class="pill">정리</span></div>
+  <div class="body" style="gap:22px">
+    <div class="callout" style="font-size:33px;padding:12px 26px">기술의 작동 원리부터 사회적 영향력까지, 오늘 배운 흐름을 빈칸을 눌러 되짚어 보자.</div>
+    <div class="row" style="gap:0;margin-top:34px">
+      <div class="sm" style="--i:0"><span class="tt">원리</span><svg class="ic" viewBox="0 0 64 64"><use href="#i-gear"/></svg><span class="blank" role="button" tabindex="0" aria-pressed="false"><b>내용 기반 필터링 + 협업 필터링</b></span></div><div class="sar">→</div>
+      <div class="sm" style="--i:1"><span class="tt">결과</span><svg class="ic" viewBox="0 0 64 64"><use href="#i-gift"/></svg><span class="blank" role="button" tabindex="0" aria-pressed="false"><b>개인 맞춤형 콘텐츠 추천</b></span></div><div class="sar">→</div>
+      <div class="sm" style="--i:2"><span class="tt">부작용</span><svg class="ic" viewBox="0 0 64 64"><use href="#i-bubble"/></svg><span class="blank" role="button" tabindex="0" aria-pressed="false"><b>뜻밖의 발견 상실, 필터 버블·확증 편향</b></span></div><div class="sar">→</div>
+      <div class="sm k4 dark" style="--i:3"><span class="tt">해법</span><svg class="ic" viewBox="0 0 64 64"><use href="#i-book"/></svg><span class="blank" role="button" tabindex="0" aria-pressed="false"><b>주체적인 정보 탐색과 비판적 독서</b></span></div>
+    </div>
+    <div class="card dark" style="padding:26px 40px;text-align:center;margin-top:6px"><div class="serif" style="font-size:46px;line-height:1.55;color:var(--beige)">알고리즘은 좋은 도구입니다.<br><span style="color:#fff">그러나 내 세계의 넓이를 정하는 것은 나의 선택입니다.</span></div></div>
+  </div>
+</section>
+
+<!-- ================= 24. 배움일지 ================= -->
+<section class="slide">
+  <div class="hdr"><h1>배움일지</h1><span class="sub">활동을 마치며</span><span class="pill">기록</span></div>
+  <div class="body">
+    <div class="row" style="flex:1;gap:28px">
+      <div class="jn"><h3><span class="num">1</span>배운 점</h3><div class="ln"></div></div>
+      <div class="jn"><h3><span class="num">2</span>느낀 점</h3><div class="ln"></div></div>
+      <div class="jn"><h3><span class="num b">3</span>더 공부해보고 싶은 점</h3><div class="ln"></div></div>
+    </div>
+    <div class="callout" style="font-size:33px;padding:12px 26px">도전: 알고리즘이 추천하지 않은 책 한 권을, 이번 주에 내 손으로 골라 보기.</div>
+  </div>
+</section>
+
+  <div id="prog"></div>
+  <div id="bar" role="toolbar" aria-label="슬라이드 조작">
+    <div class="grp l">
+      <button id="nb" class="pri" title="다음 빈칸 열기 (Space)">다음 빈칸</button>
+      <button id="ab" title="모두 보기/가리기 (A)">모두 보기</button>
+      <button id="tc" title="슬라이드 목록 (G)">목록</button>
+      <button id="fs" title="전체 화면 (F)">전체화면</button>
+      <span class="ver">v1.1</span>
+      <span class="cnt" id="cnt">1 / 24</span>
+    </div>
+    <div class="grp r">
+      <button id="pv" class="nav" title="이전 (←)">◀ 이전</button>
+      <button id="nx" class="nav" title="다음 (→)">다음 ▶</button>
+    </div>
+  </div>
+  <div id="toc"><h3>슬라이드 목록</h3><div class="g"></div><button id="tcx" style="position:absolute;right:90px;top:60px;height:60px;width:130px;font-size:28px;text-align:center">닫기</button></div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var stage=document.getElementById('stage');
+var slides=Array.prototype.slice.call(document.querySelectorAll('.slide'));
+var bar=document.getElementById('bar');
+var prog=document.getElementById('prog');
+var cur=0;
+var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- 화면 크기에 꼭 맞추기 (스크롤 없음) ---------- */
+function fit(){
+  var vw=window.innerWidth,vh=window.innerHeight;
+  var s=Math.min(vw/1920,vh/1080);
+  var x=(vw-1920*s)/2,y=(vh-1080*s)/2;
+  stage.style.transform='translate('+x+'px,'+y+'px) scale('+s+')';
+}
+window.addEventListener('resize',fit);
+fit();
+
+/* ---------- 빈칸 ---------- */
+function blanksOf(sl){return Array.prototype.slice.call(sl.querySelectorAll('.blank'));}
+function refreshChips(sl){
+  var on=blanksOf(sl).filter(function(b){return b.classList.contains('on');}).map(function(b){return b.querySelector('b').textContent.trim();});
+  Array.prototype.forEach.call(sl.querySelectorAll('.chip[data-w]'),function(c){c.classList.toggle('used',on.indexOf(c.dataset.w)>-1);});
+}
+function setBlank(b,on){
+  b.classList.toggle('on',on);
+  b.setAttribute('aria-pressed',on?'true':'false');
+  var sl=b.closest('.slide');
+  var k=b.dataset.k;
+  if(k){Array.prototype.forEach.call(sl.querySelectorAll('[data-for="'+k+'"]'),function(e){e.classList.toggle('shown',on);});}
+  refreshChips(sl);
+  updateBar();
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest&&e.target.closest('.blank');
+  if(b){setBlank(b,!b.classList.contains('on'));clearCur(b);b.blur();}
+});
+document.addEventListener('keydown',function(e){
+  if((e.key==='Enter'||e.key===' ')&&document.activeElement&&document.activeElement.classList&&document.activeElement.classList.contains('blank')){
+    e.preventDefault();e.stopPropagation();
+    var b=document.activeElement;setBlank(b,!b.classList.contains('on'));
+  }
+},true);
+function clearCur(except){
+  Array.prototype.forEach.call(document.querySelectorAll('.blank.cur'),function(x){if(x!==except)x.classList.remove('cur');});
+}
+function revealNext(){
+  var sl=slides[cur];
+  var nx=blanksOf(sl).filter(function(b){return !b.classList.contains('on');})[0];
+  if(!nx)return false;
+  setBlank(nx,true);
+  clearCur();nx.classList.add('cur');
+  return true;
+}
+function toggleAll(){
+  var bs=blanksOf(slides[cur]);if(!bs.length)return;
+  var allOn=bs.every(function(b){return b.classList.contains('on');});
+  bs.forEach(function(b){setBlank(b,!allOn);});
+  clearCur();
+}
+function resetSlide(){blanksOf(slides[cur]).forEach(function(b){setBlank(b,false);});clearCur();}
+
+/* ---------- 상·중·하 선택 ---------- */
+Array.prototype.forEach.call(document.querySelectorAll('.sel'),function(btn){
+  btn.addEventListener('click',function(){
+    var grp=btn.parentNode;
+    Array.prototype.forEach.call(grp.querySelectorAll('.sel'),function(x){x.classList.remove('on');});
+    btn.classList.add('on');btn.blur();
+  });
+});
+
+/* ---------- 이동 ---------- */
+function go(n){
+  n=Math.max(0,Math.min(slides.length-1,n));
+  hooks(slides[cur],false);
+  slides[cur].classList.remove('active');
+  cur=n;
+  slides[cur].classList.add('active');
+  hooks(slides[cur],true);
+  clearCur();
+  try{history.replaceState(null,'','#'+(cur+1));}catch(e){}
+  updateBar();
+}
+function updateBar(){
+  var bs=blanksOf(slides[cur]);
+  var on=bs.filter(function(b){return b.classList.contains('on');}).length;
+  document.getElementById('cnt').textContent=(cur+1)+' / '+slides.length;
+  var nb=document.getElementById('nb'),ab=document.getElementById('ab');
+  nb.style.visibility=bs.length?'visible':'hidden';ab.style.visibility=bs.length?'visible':'hidden';
+  document.getElementById('pv').disabled=(cur<=0);document.getElementById('nx').disabled=(cur>=slides.length-1);
+  nb.textContent=on<bs.length?('다음 빈칸 '+on+'/'+bs.length):('빈칸 모두 열림 '+bs.length+'/'+bs.length);
+  ab.textContent=(bs.length&&on===bs.length)?'모두 가리기':'모두 보기';
+  prog.style.width=((cur+1)/slides.length*100)+'%';
+}
+bar.addEventListener('click',function(){if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();});
+document.getElementById('pv').onclick=function(){go(cur-1);};
+document.getElementById('nx').onclick=function(){go(cur+1);};
+document.getElementById('nb').onclick=function(){revealNext();};
+document.getElementById('ab').onclick=toggleAll;
+document.getElementById('fs').onclick=toggleFs;
+document.getElementById('tc').onclick=function(){openToc(true);};
+function toggleFs(){
+  var d=document,el=d.documentElement;
+  if(!d.fullscreenElement){(el.requestFullscreen||el.webkitRequestFullscreen||function(){}).call(el);}
+  else{(d.exitFullscreen||d.webkitExitFullscreen||function(){}).call(d);}
+}
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey||e.metaKey||e.altKey)return;
+  var k=e.key;
+  if(document.getElementById('toc').classList.contains('open')){if(k==='Escape'||k==='g'||k==='G')openToc(false);return;}
+  if(k==='ArrowRight'||k==='PageDown'){go(cur+1);e.preventDefault();}
+  else if(k==='ArrowLeft'||k==='PageUp'){go(cur-1);e.preventDefault();}
+  else if(k===' '||k==='Enter'){e.preventDefault();if(!revealNext())go(cur+1);}
+  else if(k==='Home'){go(0);}
+  else if(k==='End'){go(slides.length-1);}
+  else if(k==='a'||k==='A'||k==='ㅁ'){toggleAll();}
+  else if(k==='r'||k==='R'||k==='ㄱ'){resetSlide();}
+  else if(k==='f'||k==='F'||k==='ㄹ'){toggleFs();}
+  else if(k==='g'||k==='G'||k==='ㅎ'){openToc(true);}
+  else if(k==='h'||k==='H'||k==='ㅗ'){bar.classList.toggle('hide');}
+});
+
+/* ---------- 목록 ---------- */
+function buildToc(){
+  var g=document.querySelector('#toc .g');g.innerHTML='';
+  slides.forEach(function(s,i){
+    var h=s.querySelector('.hdr h1'),p=s.querySelector('.hdr .pill');
+    var btn=document.createElement('button');
+    var t=h?h.textContent:(s.dataset.title||'표지');
+    btn.innerHTML='<em>'+(i+1)+'. '+(p?p.textContent:(s.dataset.pill||'시작'))+'</em>'+t;
+    btn.onclick=function(){openToc(false);go(i);};
+    g.appendChild(btn);
+  });
+}
+function openToc(on){
+  var t=document.getElementById('toc');
+  if(on){buildToc();Array.prototype.forEach.call(t.querySelectorAll('button'),function(b,i){b.classList.toggle('now',i===cur);});}
+  t.classList.toggle('open',on);
+}
+document.getElementById('tcx').onclick=function(){openToc(false);};
+
+/* ---------- 컨트롤 바 자동 숨김 ---------- */
+var hideT;
+function showBar(){bar.classList.remove('hide');clearTimeout(hideT);hideT=setTimeout(function(){if(!bar.matches(':hover'))bar.classList.add('hide');},3500);}
+['pointermove','pointerdown','touchstart'].forEach(function(ev){stage.addEventListener(ev,showBar,{passive:true});});
+document.addEventListener('pointermove',showBar,{passive:true});
+
+/* ---------- 스와이프 ---------- */
+var sx=0,sy=0,st=0,sOK=false;
+stage.addEventListener('pointerdown',function(e){sOK=!(e.target.closest&&e.target.closest('.blank,button,#bar,#toc'));sx=e.clientX;sy=e.clientY;st=Date.now();});
+stage.addEventListener('pointerup',function(e){
+  if(!sOK)return;
+  var dx=e.clientX-sx,dy=e.clientY-sy;
+  if(Date.now()-st<700&&Math.abs(dx)>90&&Math.abs(dy)<70){go(cur+(dx<0?1:-1));}
+});
+
+/* ---------- 슬라이드별 효과 ---------- */
+var HK={};
+function hooks(sl,on){var h=sl.dataset.hook;if(h&&HK[h])HK[h](sl,on);}
+
+/* 글자 뒤섞이다 맞춰지기 (텍스트 스크램블) */
+var scTimer=null;
+HK.cover=function(sl,on){
+  var el=document.getElementById('coverTitle');
+  clearInterval(scTimer);
+  var lines=el.dataset.t.split('|');
+  function plain(){el.innerHTML=lines.join('<br>');}
+  if(!on||reduce){plain();return;}
+  var pool='가나다라마바사아자차카타파하글숫값별점추천봇알고리즘#%&*+=?';
+  var total=lines.join('').replace(/\s/g,'').length;
+  var frame=0,perChar=2.2,start=8;
+  scTimer=setInterval(function(){
+    frame++;
+    var idx=0,out=[];
+    lines.forEach(function(L){
+      var s='';
+      for(var i=0;i<L.length;i++){
+        var c=L[i];
+        if(c===' '){s+=' ';continue;}
+        var lock=start+idx*perChar;
+        if(frame>=lock){s+=c;}else if(frame<start/2){s+='<span style="opacity:.0">'+c+'</span>';}else{s+='<span style="color:#C9B18B">'+pool[Math.floor(Math.random()*pool.length)]+'</span>';}
+        idx++;
+      }
+      out.push(s);
+    });
+    el.innerHTML=out.join('<br>');
+    if(frame>=start+total*perChar+2){clearInterval(scTimer);plain();}
+  },45);
+};
+
+/* 데이터의 바다 → 추천 깔때기 */
+var F={raf:0,ps:[],on:false,last:0,glow:0,acc:0};
+HK.funnel=function(sl,on){
+  var cv=document.getElementById('fnl');
+  if(!on){F.on=false;cancelAnimationFrame(F.raf);return;}
+  var W=1728,H=690,cy=H/2,dpr=2;
+  cv.width=W*dpr;cv.height=H*dpr;
+  var ctx=cv.getContext('2d');
+  F.ps=[];F.on=true;F.glow=0;F.last=performance.now();F.acc=0;
+  var tone=['#C9B18B','#F1EADD','#A8875A','#8A8A86','#ffffff'];
+  function half(x){if(x<470)return 300;if(x<880)return 300-(x-470)/410*274;return 26;}
+  function spawn(){
+    var keep=Math.random()<0.1;
+    F.ps.push({x:30+Math.random()*130,r:keep?(Math.random()*2-1)*0.1:(Math.random()*2-1),v:1.7+Math.random()*1.1,c:Math.floor(Math.random()*4),z:3+Math.random()*3.5,keep:keep,k:Math.floor(Math.random()*3),ph:Math.random()*6.28});
+  }
+  function draw(t){
+    if(!F.on)return;
+    var dt=Math.min(40,t-F.last);F.last=t;
+    F.acc+=dt;
+    while(F.acc>45){F.acc-=45;spawn();if(Math.random()<.5)spawn();}
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.clearRect(0,0,W,H);
+    /* 깔때기 */
+    ctx.beginPath();ctx.moveTo(470,cy-300);ctx.lineTo(880,cy-26);ctx.lineTo(1290,cy-26);ctx.lineTo(1290,cy+26);ctx.lineTo(880,cy+26);ctx.lineTo(470,cy+300);ctx.closePath();
+    ctx.fillStyle='rgba(201,177,139,.10)';ctx.fill();
+    ctx.lineWidth=4;ctx.strokeStyle='#C9B18B';
+    ctx.beginPath();ctx.moveTo(470,cy-300);ctx.lineTo(880,cy-26);ctx.lineTo(1290,cy-26);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(470,cy+300);ctx.lineTo(880,cy+26);ctx.lineTo(1290,cy+26);ctx.stroke();
+    /* 사람 */
+    var px=1590;
+    var g=ctx.createRadialGradient(px,cy,10,px,cy,150);
+    g.addColorStop(0,'rgba(201,177,139,'+(0.15+F.glow*0.6)+')');g.addColorStop(1,'rgba(201,177,139,0)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(px,cy,150,0,6.3);ctx.fill();
+    ctx.lineWidth=7;ctx.strokeStyle='#F1EADD';ctx.fillStyle='#1C1C1C';
+    ctx.beginPath();ctx.arc(px,cy-34,36,0,6.3);ctx.fill();ctx.stroke();
+    ctx.beginPath();ctx.arc(px,cy+84,62,Math.PI*1.08,Math.PI*1.92);ctx.stroke();
+    F.glow=Math.max(0,F.glow-dt/900);
+    /* 입자 */
+    var ps=F.ps;
+    for(var i=ps.length-1;i>=0;i--){
+      var p=ps[i];
+      p.x+=p.v*(dt/16);
+      var a=1,y,size=p.z;
+      if(p.keep){
+        if(p.x>1290){
+          var q=Math.min(1,(p.x-1290)/230);
+          y=cy+(0)*(1-q);size=p.z+7;
+          if(p.x>1520){F.glow=1;ps.splice(i,1);continue;}
+        }else{y=cy+p.r*half(p.x)+Math.sin(p.x*.02+p.ph)*2;size=p.z+(p.x>880?7:0)*Math.min(1,(p.x-880)/120);}
+      }else{
+        y=cy+p.r*half(p.x)+Math.sin(p.x*.02+p.ph)*3;
+        if(p.x>690){a=1-(p.x-690)/200;if(a<=0){ps.splice(i,1);continue;}}
+      }
+      ctx.globalAlpha=a;
+      ctx.fillStyle=p.keep?tone[p.k]:tone[p.c];
+      ctx.beginPath();ctx.arc(p.x,y,size,0,6.3);ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    F.raf=requestAnimationFrame(draw);
+  }
+  if(reduce){F.on=false;for(var n=0;n<260;n++){spawn();F.ps[n].x=30+Math.random()*700;}F.on=true;draw(performance.now());F.on=false;return;}
+  F.raf=requestAnimationFrame(draw);
+};
+
+window.addEventListener('hashchange',function(){var n=parseInt((location.hash||'').replace('#',''),10);if(n>=1&&n<=slides.length&&n-1!==cur)go(n-1);});
+
+/* ---------- 시작 ---------- */
+var h=parseInt((location.hash||'').replace('#',''),10);
+if(h>=1&&h<=slides.length)cur=h-1;
+slides[cur].classList.add('active');
+hooks(slides[cur],true);
+updateBar();
+showBar();
+})();
+
+</script>
+</body>
+</html>

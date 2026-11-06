@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>HTML 학습지 모음</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Noto Sans KR','Noto Sans CJK KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:#F4F4F2;color:#1A1A1A;word-break:keep-all;overflow-wrap:break-word;line-height:1.6}
+  header{background:#1C1C1C;color:#fff;padding:28px 6vw}
+  header h1{font-size:clamp(24px,3.4vw,38px);font-weight:700}
+  header p{color:#C9B18B;margin-top:6px;font-size:clamp(14px,1.6vw,18px)}
+  main{max-width:960px;margin:0 auto;padding:32px 5vw 64px}
+  .list{display:grid;gap:18px}
+  a.card{display:block;background:#fff;border-radius:14px;padding:24px 28px;text-decoration:none;color:inherit;box-shadow:0 2px 8px rgba(0,0,0,.05);border-left:6px solid #C9B18B;transition:transform .15s,box-shadow .15s}
+  a.card:hover,a.card:focus-visible{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.09);outline:none}
+  .tag{display:inline-block;font-size:13px;font-weight:600;background:#F1EADD;color:#6B5535;border-radius:999px;padding:2px 12px;margin-bottom:8px}
+  a.card h2{font-size:clamp(18px,2.2vw,24px);font-weight:700}
+  a.card p{color:#6B6B68;margin-top:4px;font-size:15px}
+  .open{display:inline-block;margin-top:12px;font-size:14px;font-weight:700;background:#1C1C1C;color:#fff;border-radius:999px;padding:5px 16px}
+  .hint{margin-top:28px;font-size:14px;color:#6B6B68;background:#F1EADD;border-left:5px solid #C9B18B;border-radius:10px;padding:14px 18px}
+  footer{text-align:center;color:#6B6B68;font-size:13px;padding-bottom:28px}
+</style>
+</head>
+<body>
+<header>
+  <h1>HTML 학습지 모음</h1>
+  <p>전자칠판에서 빈칸을 눌러 정답을 여는 수업용 슬라이드</p>
+</header>
+<main>
+  <div class="list">
+    <a class="card" href="algorithm-reading/">
+      <span class="tag">주제 탐구 독서</span>
+      <h2>「알고리즘이 당신에게 이것을 추천합니다」</h2>
+      <p>교과서 92~99쪽 · 시작 자료 + 읽기 활동 · 빈칸 104개</p>
+      <span class="open">슬라이드 열기</span>
+    </a>
+    <!-- 새 학습지는 위 a.card 블록을 복사해 href(폴더명)와 제목만 바꾸면 됩니다. -->
+  </div>
+  <p class="hint">조작: 빈칸 클릭 = 정답 열기 · Space/Enter = 다음 빈칸 → 다음 슬라이드 · ← → 이동 · F 전체화면 · G 목록</p>
+</main>
+<footer>v1.1</footer>
+</body>
+</html>
